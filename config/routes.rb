@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :users , only: [:index] do 
     resources :stores do
+      resources :items
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

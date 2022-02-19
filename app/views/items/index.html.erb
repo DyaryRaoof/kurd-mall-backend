@@ -1,0 +1,12 @@
+<h1>Items</h1>
+
+<div id="items">
+  <% @items.each do |item| %>
+    <%= render item %>
+    <p>
+      <%= link_to "Show this item", user_store_item_path(id: item) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New item", new_user_store_item_path %>
