@@ -14,15 +14,24 @@
 
   <body>
   <%= render 'shared/nav'%>
-    <div class="container">
-      <% if notice %>
-            <div class="notice"><%= notice %></div>
+  <% if notice %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <%= notice %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
         <% end %>
         <% if alert %>
-                <p class="alert"><%= alert %></p>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <%= alert %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
         <% end %>
-      <div>
+    <div class="container">
+      
+      <div class="d-flex justify-content-center">
+         <div>
           <%= yield %>
+         </div>
       </div>
     </div>
 
