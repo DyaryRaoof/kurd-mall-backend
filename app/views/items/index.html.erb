@@ -2,7 +2,7 @@
 
 <div id="items">
   <% @items.each do |item| %>
-    <%= render item %>
+    <%= render item, show_images: false %>
     <p>
       <%= link_to "Show this item", user_store_item_path(id: item) %>
     </p>

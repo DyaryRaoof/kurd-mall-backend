@@ -34,4 +34,12 @@
     <%= item.is_approved %>
   </p>
 
+  <%if show_images%>
+    <p>
+      <% item.images.each do  |image|%>
+      <%= image_tag image, class: "store-image" %>
+      <%end %>
+    </p>
+  <%end%>
+
 </div>

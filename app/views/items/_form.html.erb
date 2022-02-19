@@ -11,6 +11,17 @@
     </div>
   <% end %>
 
+  <p>
+    <% item.images.each do  |image|%>
+    <%= image_tag image, class: "store-image" %>
+    <%end %>
+  </p>
+
+  <div>
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true, class: "form-control" %>
+  </div>
+
   <div>
     <%= form.label :user_id, style: "display: block" %>
     <%= form.text_field :user_id %>
