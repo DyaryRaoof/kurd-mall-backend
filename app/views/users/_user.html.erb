@@ -1,15 +1,13 @@
 <div class="border border-1 border-primary m-2 p-2 rounded">
-    <%= link_to user, class:"text-decoration-none text-dark" do%>
-        <div style="display: flex;">
-        <div class="single-user-box"></div>
-            <div class="single-user-content main-border">
-                <h1 class="text-primary"><%= user.name %></h1>
-                <p>Email: <%= user.email %></p>
-                <p>Phone: <%= user.phone %></p>
-                <p>Image: <%= user.image %></p>
-                <p>Is Admin: <%= user.is_admin %></p>
-                <p>Is Driver: <%= user.is_driver %></p>
-            </div>
+    <div style="display: flex;">
+    <div class="single-user-box"></div>
+        <div class="single-user-content main-border">
+            <h1 class="text-primary"><%= user.name %></h1>
+            <p>Email: <%= user.email %></p>
+            <p>Phone: <%= user.phone %></p>
+            <p>Image: <%= user.image %></p>
+            <p>Is Admin: <%= user.is_admin %></p>
+            <p>Is Driver: <%= user.is_driver %></p>
         </div>
-    <%end%>
+    </div>
 </div>
