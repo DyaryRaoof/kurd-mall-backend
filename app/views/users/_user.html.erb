@@ -2,10 +2,13 @@
     <div style="display: flex;">
     <div class="single-user-box"></div>
         <div class="single-user-content main-border">
+        
             <h1 class="text-primary"><%= user.name %></h1>
+            <%if user.image.attached?%>
+               <%= image_tag user.image, size: "200x200", class: "rounded-circle" %>
+            <%end%>
             <p>Email: <%= user.email %></p>
             <p>Phone: <%= user.phone %></p>
-            <p>Image: <%= user.image %></p>
             <p>Is Admin: <%= user.is_admin %></p>
             <p>Is Driver: <%= user.is_driver %></p>
         </div>

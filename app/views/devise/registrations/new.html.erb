@@ -20,8 +20,12 @@
 
   <div class="field">
     <%= f.label :image %><br />
-    <%= f.text_field :image, autofocus: true, autocomplete: "image",placeholdr: "Image", class: "form-control" %>
+    <%= f.file_field :image, multiple: false, class: "form-control"  %><br>
   </div>
+
+    <%if @user.image.attached?%>
+      <p>Image: <%= image_tag user.image, size: "200x200", class: "rounded-circle" %></p>
+   <%end%>
 
    <div class="field  d-fle  align-items-center">
     <%= f.check_box :is_driver %>
