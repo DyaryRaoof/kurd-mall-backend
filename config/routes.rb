@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   root to: 'users#index'
 
   resources :users , only: [:index] do 
-    resources :stores
+    resources :stores do
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
