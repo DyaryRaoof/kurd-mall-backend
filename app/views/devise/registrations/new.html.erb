@@ -10,7 +10,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholdr: "Email",  class: "form-control"  %>
   </div>
 
    <div class="field">
@@ -23,18 +23,18 @@
     <%= f.text_field :image, autofocus: true, autocomplete: "image",placeholdr: "Image", class: "form-control" %>
   </div>
 
-   <div class="field">
-    <%= f.label :is_driver %><br />
+   <div class="field  d-fle  align-items-center">
     <%= f.check_box :is_driver %>
+    <span class="px-2"><%= f.label :is_driver %></span>
   </div>
 
 
-   <div class="field">
-    <%= f.label :is_admin %><br />
+   <div class="field d-flex align-items-center">
     <%= f.check_box :is_admin %>
+    <span class="px-2"><%= f.label :is_admin %></span>
   </div>
 
-  <div class="field">
+  <div class="fieldx">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -48,7 +48,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class:"btn btn-primary my-2" %>
   </div>
 <% end %>
 
