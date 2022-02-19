@@ -118,6 +118,7 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mini_magick (4.11.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
     msgpack (1.4.5)
@@ -237,6 +238,7 @@ DEPENDENCIES
   devise
   importmap-rails
   jbuilder
+  mini_magick (~> 4.5, >= 4.5.1)
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.2)

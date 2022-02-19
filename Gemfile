@@ -48,6 +48,8 @@ gem 'will_paginate', '~> 3.3.0'
 
 gem 'ransack'
 
+gem 'mini_magick', '~> 4.5', '>= 4.5.1'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

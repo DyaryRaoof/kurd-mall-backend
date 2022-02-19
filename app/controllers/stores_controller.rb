@@ -1,25 +1,26 @@
 class StoresController < ApplicationController
   before_action :set_store, only: %i[ show edit update destroy ]
 
-  # GET /stores or /stores.json
+  # GET users/:id/stores or users/:id/stores.json
   def index
-    @stores = Store.all
+    @q = Store.ransack(params[:q])
+    @stores = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 30)
   end
 
-  # GET /stores/1 or /stores/1.json
+  # GET users/:id/stores/1 or users/:id/stores/1.json
   def show
   end
 
-  # GET /stores/new
+  # GET users/:id/stores/new
   def new
     @store = Store.new
   end
 
-  # GET /stores/1/edit
+  # GET users/:id/stores/1/edit
   def edit
   end
 
-  # POST /stores or /stores.json
+  # POST users/:id/stores or users/:id/stores.json
   def create
     @store = Store.new(store_params)
 
@@ -34,7 +35,7 @@ class StoresController < ApplicationController
     end
   end
 
-  # PATCH/PUT /stores/1 or /stores/1.json
+  # PATCH/PUT users/:id/stores/1 or users/:id/stores/1.json
   def update
     respond_to do |format|
       if @store.update(store_params)
@@ -47,7 +48,7 @@ class StoresController < ApplicationController
     end
   end
 
-  # DELETE /stores/1 or /stores/1.json
+  # DELETE users/:id/stores/1 or users/:id/stores/1.json
   def destroy
     @store.destroy
 
@@ -65,6 +66,6 @@ class StoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def store_params
-      params.require(:store).permit(:user_id, :name, :description, :address, :phone, :instagram, :facebook, :locaation_long, :location_lat, :is_approved)
+      params.require(:store).permit(:user_id, :name, :description, :address, :phone, :instagram, :facebook, :locaation_long, :location_lat, :is_approved, images: [])
     end
 end

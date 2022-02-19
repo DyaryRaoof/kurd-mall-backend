@@ -51,3 +51,8 @@
   *:first-child + html .digg_pagination {
     overflow: hidden; }
 
+    .store-image {
+      width: 200px;
+      height: auto;
+    }
+

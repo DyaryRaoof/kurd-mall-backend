@@ -1,4 +1,6 @@
 <div id="<%= dom_id store %>">
+
+
   <p>
     <strong>User:</strong>
     <%= store.user_id %>
@@ -48,5 +50,14 @@
     <strong>Is approved:</strong>
     <%= store.is_approved %>
   </p>
+
+  <%if show_images%>
+    <p>
+      <% store.images.each do  |image|%>
+      <%= image_tag image, class: "store-image" %>
+      <%end %>
+    </p>
+  <%end%>
+
 
 </div>

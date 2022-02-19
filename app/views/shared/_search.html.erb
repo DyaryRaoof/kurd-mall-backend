@@ -1,0 +1,6 @@
+<%= search_form_for(@q, url: user_stores_url)do |f| %>
+  <div class="d-flex p-2 " >
+    <%= f.search_field search_query, class: "form-control", placeholder: placeholder%>
+    <%= f.submit 'Search', class: "btn btn-outline-success ms-1" %>
+  </div>
+<% end %>

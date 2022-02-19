@@ -11,57 +11,68 @@
     </div>
   <% end %>
 
+  <p>
+      <% store.images.each do  |image|%>
+      <%= image_tag image, class: "store-image" %>
+      <%end %>
+  </p>
+
+  <div>
+  <%= form.label :images %>
+  <%= form.file_field :images, multiple: true, class: "form-control" %>
+  </div>
+
   <div>
     <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.text_field :user_id, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :address, style: "display: block" %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
+    <%= form.text_field :phone, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :instagram, style: "display: block" %>
-    <%= form.text_field :instagram %>
+    <%= form.text_field :instagram, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :facebook, style: "display: block" %>
-    <%= form.text_field :facebook %>
+    <%= form.text_field :facebook, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :locaation_long, style: "display: block" %>
-    <%= form.text_field :locaation_long %>
+    <%= form.text_field :locaation_long, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :location_lat, style: "display: block" %>
-    <%= form.text_field :location_lat %>
+    <%= form.text_field :location_lat, class: "form-control" %>
+  </div>
+
+  <div class="d-flex">
+    <span> <%= form.check_box :is_approved %></span>
+    <span><%= form.label :is_approved, style: "display: block; padding-left: 4px" %></span>
   </div>
 
   <div>
-    <%= form.label :is_approved, style: "display: block" %>
-    <%= form.check_box :is_approved %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Submit" , class: "btn btn-primary" %>
   </div>
 <% end %>
