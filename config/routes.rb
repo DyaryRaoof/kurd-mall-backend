@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :item_variants
   devise_for :users
   get 'home/index'
   root to: 'users#index'

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Item variants</h1>
+
+<div id="item_variants">
+  <% @item_variants.each do |item_variant| %>
+    <%= render item_variant %>
+    <p>
+      <%= link_to "Show this item variant", item_variant %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New item variant", new_item_variant_path %>
