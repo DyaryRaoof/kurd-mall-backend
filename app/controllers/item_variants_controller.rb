@@ -25,7 +25,7 @@ class ItemVariantsController < ApplicationController
 
     respond_to do |format|
       if @item_variant.save
-        format.html { redirect_to item_variant_url(@item_variant), notice: "Item variant was successfully created." }
+        format.html { redirect_to user_store_item_item_variant_url(id: @item_variant), notice: "Item variant was successfully created." }
         format.json { render :show, status: :created, location: @item_variant }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ItemVariantsController < ApplicationController
   def update
     respond_to do |format|
       if @item_variant.update(item_variant_params)
-        format.html { redirect_to item_variant_url(@item_variant), notice: "Item variant was successfully updated." }
+        format.html { redirect_to user_store_item_item_variant_url(id: @item_variant), notice: "Item variant was successfully updated." }
         format.json { render :show, status: :ok, location: @item_variant }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ItemVariantsController < ApplicationController
     @item_variant.destroy
 
     respond_to do |format|
-      format.html { redirect_to item_variants_url, notice: "Item variant was successfully destroyed." }
+      format.html { redirect_to user_store_item_item_variants_url, notice: "Item variant was successfully destroyed." }
       format.json { head :no_content }
     end
   end

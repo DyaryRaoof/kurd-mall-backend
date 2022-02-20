@@ -1,4 +1,5 @@
 <div id="<%= dom_id item %>">
+<h1>Item</h1>
   <p>
     <strong>User:</strong>
     <%= item.user_id %>
@@ -41,5 +42,14 @@
       <%end %>
     </p>
   <%end%>
+
+  <h1>Variants</h1>
+  <p>
+    <%item.item_variants.each_with_index do |variant, i|%>
+      <div><strong>Variant: <%= i+1 %></strong></div>
+      <%= render 'item_variants/item_variant', item_variant: variant%>
+      <%= image_tag item.images[variant.image_index], class: "store-image" %>
+    <%end%>
+  </p>
 
 </div>

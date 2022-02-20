@@ -1,5 +1,6 @@
 <h1>Items</h1>
 
+<%= link_to "New item", new_user_store_item_path, class: "btn btn-primary mb-5" %>
 <div id="items">
   <% @items.each do |item| %>
     <%= render item, show_images: false %>
@@ -9,4 +10,3 @@
   <% end %>
 </div>
 
-<%= link_to "New item", new_user_store_item_path %>

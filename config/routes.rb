@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  resources :item_variants
   devise_for :users
   get 'home/index'
   root to: 'users#index'
 
   resources :users , only: [:index] do 
     resources :stores do
-      resources :items
+      resources :items do
+        resources :item_variants
+      end
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
