@@ -1,0 +1,38 @@
+<%= form_with(model: store_comment, url: url) do |form| %>
+  <% if store_comment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(store_comment.errors.count, "error") %> prohibited this store_comment from being saved:</h2>
+
+      <ul>
+        <% store_comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :store_id, style: "display: block" %>
+    <%= form.text_field :store_id, class: "form-control", value: params[:store_id] %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id, class: "form-control", value: params[:user_id] %>
+  </div>
+
+  <div>
+    <%= form.label :user_name, style: "display: block" %>
+    <%= store_comment.user %>
+    <%= form.text_field :user_name, class: "form-control", value: User.find(params[:user_id]).name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.submit "Submit", class: "btn btn-primary mt-5"%>
+  </div>
+<% end %>

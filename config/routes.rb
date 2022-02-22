@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   get 'home/index'
   root to: 'users#index'
 
-  resources :users , only: [:index] do 
+  resources :users do 
     resources :stores do
+      resources :store_comments
       resources :items do
         resources :item_variants
         resources :tags

@@ -1,0 +1,12 @@
+<h1>Store comments</h1>
+
+<%= link_to "New store comment", new_user_store_store_comment_path, class: "btn btn-primary mb-5" %>
+<div id="store_comments">
+  <% @store_comments.each do |store_comment| %>
+    <%= render store_comment %>
+    <p>
+      <%= link_to "Show this store comment", user_store_store_comment_path(id: store_comment) %>
+    </p>
+  <% end %>
+</div>
+

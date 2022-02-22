@@ -9,8 +9,12 @@
             <%end%>
             <p>Email: <%= user.email %></p>
             <p>Phone: <%= user.phone %></p>
+            <p>Password: <%= user.password%></p>
             <p>Is Admin: <%= user.is_admin %></p>
             <p>Is Driver: <%= user.is_driver %></p>
+            <p>ID: <%= user.id %></p>
+
         </div>
     </div>
-</div>
+    <div><%= link_to "Show this user", user_path(user)%></div>
+</div
