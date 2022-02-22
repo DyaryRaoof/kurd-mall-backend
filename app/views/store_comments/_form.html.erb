@@ -32,6 +32,11 @@
     <%= form.text_field :description, class: "form-control" %>
   </div>
 
+  <p>
+    <div>User Image</div>
+    <%= image_tag User.find(params[:user_id]).image, class: "store-image" %>
+  </p>
+
   <div>
     <%= form.submit "Submit", class: "btn btn-primary mt-5"%>
   </div>
