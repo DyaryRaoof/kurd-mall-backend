@@ -43,13 +43,22 @@
     </p>
   <%end%>
 
-  <h1>Variants</h1>
-  <p>
-    <%item.item_variants.each_with_index do |variant, i|%>
-      <div><strong>Variant: <%= i+1 %></strong></div>
-      <%= render 'item_variants/item_variant', item_variant: variant%>
-      <%= image_tag item.images[variant.image_index], class: "store-image" %>
-    <%end%>
-  </p>
+  <% if item.item_variants.length > 0%>
+    <h3>Variants</h3>
+    <p>
+      <%item.item_variants.each_with_index do |variant, i|%>
+        <div><strong>Variant: <%= i+1 %></strong></div>
+        <%= render 'item_variants/item_variant', item_variant: variant%>
+        <%= image_tag item.images[variant.image_index], class: "store-image" %>
+      <%end%>
+    </p>
+  <%end%>
 
+
+  <% if item.tags.length > 0%>
+  <h3>Tags</h3>
+    <% item.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  <%end%>
 </div>

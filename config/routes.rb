@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :stores do
       resources :items do
         resources :item_variants
+        resources :tags
       end
     end
   end

@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   belongs_to :store
   has_many_attached :images, dependent: :destroy
   has_many :item_variants, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true

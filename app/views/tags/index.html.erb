@@ -1,0 +1,13 @@
+<h1>Tags</h1>
+
+<div id="tags">
+  <% @tags.each do |tag| %>
+    <%= render tag %>
+    <p>
+      <%= link_to "Show this tag",  user_store_item_tag_path(id: tag) %>
+    </p>
+    <hr/>
+  <% end %>
+</div>
+
+<%= link_to "New tag", new_user_store_item_tag_path %>

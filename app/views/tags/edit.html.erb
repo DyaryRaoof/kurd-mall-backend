@@ -1,0 +1,10 @@
+<h1>Editing tag</h1>
+
+<%= render "form", tag: @tag, url: user_store_item_tag_path %>
+
+<br>
+
+<div>
+  <%= link_to "Show this tag",user_store_item_tag_path(@tag)  %> |
+  <%= link_to "Back to tags", user_store_item_tags_path %>
+</div>
