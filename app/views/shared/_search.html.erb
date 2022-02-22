@@ -1,5 +1,5 @@
 <%= search_form_for(@q, url: path)do |f| %>
-  <div class="d-flex p-2 " >
+  <div class="d-flex pb-2" >
     <%= f.search_field search_query, class: "form-control", placeholder: placeholder%>
     <%= f.submit 'Search', class: "btn btn-outline-success ms-1" %>
   </div>

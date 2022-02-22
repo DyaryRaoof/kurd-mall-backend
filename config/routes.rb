@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :items do
         resources :item_variants
         resources :tags
+        resources :item_comments
       end
     end
   end

@@ -1,0 +1,10 @@
+<h1>Editing item comment</h1>
+
+<%= render "form", item_comment: @item_comment, url: user_store_item_item_comment_path %>
+
+<br>
+
+<div>
+  <%= link_to "Show this item comment", user_store_item_item_comment_path(@item_comment) %> |
+  <%= link_to "Back to item comments", user_store_item_item_comments_path %>
+</div>

@@ -1,6 +1,10 @@
 <h1>Store comments</h1>
 
 <%= link_to "New store comment", new_user_store_store_comment_path, class: "btn btn-primary mb-5" %>
+
+<%= render 'shared/search',search_query: :description_cont, placeholder: "Description", path: user_store_store_comments_url %>
+
+
 <div id="store_comments">
   <% @store_comments.each do |store_comment| %>
     <%= render store_comment %>
@@ -8,5 +12,10 @@
       <%= link_to "Show this store comment", user_store_store_comment_path(id: store_comment) %>
     </p>
   <% end %>
+</div>
+
+
+<div class="d-flex justify-content-center">
+    <%= will_paginate @users, class: "digg_pagination" %>
 </div>
 

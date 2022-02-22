@@ -1,5 +1,7 @@
 <h1>Users</h1>
-<%= render 'shared/search',search_query: :email_or_name_cont, placeholder: "Email or name", path: users_url %>
+<div class="px-2">
+    <%= render 'shared/search',search_query: :email_or_name_cont, placeholder: "Email or name", path: users_url %>
+</div>
 <%= render @users%>
 <div class="d-flex justify-content-center">
     <%= will_paginate @users, class: "digg_pagination" %>
