@@ -1,0 +1,13 @@
+<h1>Cities</h1>
+
+<%= link_to "New city", new_city_path, class: "btn btn-primary mb-5" %>
+
+<div id="cities">
+  <% @cities.each do |city| %>
+    <%= render city %>
+    <p>
+      <%= link_to "Show this city", city %>
+    </p>
+  <% end %>
+</div>
+
