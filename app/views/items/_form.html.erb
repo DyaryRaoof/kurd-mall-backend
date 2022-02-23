@@ -32,6 +32,21 @@
     <%= form.text_field :store_id, value: params[:store_id], class: "form-control" %>
   </div>
 
+    <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%= form.text_field :category_id, class: "form-control" %>
+  </div>
+
+   <div>
+    <%= form.label :subcategory_id, style: "display: block" %>
+    <%= form.text_field :subcategory_id, class: "form-control" %>
+  </div>
+
+   <div>
+    <%= form.label :city_id, style: "display: block" %>
+    <%= form.text_field :city_id, class: "form-control" %>
+  </div>
+
   <div>
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name, class: "form-control" %>
