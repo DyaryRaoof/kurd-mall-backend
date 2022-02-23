@@ -23,9 +23,15 @@
     <%= f.file_field :image, multiple: false, class: "form-control"  %><br>
   </div>
 
-    <%if @user.image.attached?%>
-      <p>Image: <%= image_tag user.image, size: "200x200", class: "rounded-circle" %></p>
-   <%end%>
+  <div class="field">
+    <%= f.label :store_id %><br />
+    <%= f.text_field :store_id, autofocus: true, autocomplete: "Store ID",placeholdr: "Store ID", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city_id %><br />
+    <%= f.text_field :city_id, autofocus: true, autocomplete: "City ID",placeholdr: "City ID", class: "form-control" %>
+  </div>
 
    <div class="field  d-fle  align-items-center">
     <%= f.check_box :is_driver %>
@@ -37,6 +43,7 @@
     <%= f.check_box :is_admin %>
     <span class="px-2"><%= f.label :is_admin %></span>
   </div>
+
 
   <div class="fieldx">
     <%= f.label :password %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_23_064845) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_23_071515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_064845) do
     t.boolean "is_approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "city_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "subcategory_id", null: false
+    t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["city_id"], name: "index_items_on_city_id"
     t.index ["store_id"], name: "index_items_on_store_id"
+    t.index ["subcategory_id"], name: "index_items_on_subcategory_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -120,6 +126,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_064845) do
     t.boolean "is_approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "city_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "subcategory_id", null: false
+    t.index ["category_id"], name: "index_stores_on_category_id"
+    t.index ["city_id"], name: "index_stores_on_city_id"
+    t.index ["subcategory_id"], name: "index_stores_on_subcategory_id"
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
@@ -162,9 +174,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_064845) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "unconfirmed_email"
+    t.bigint "city_id", null: false
+    t.bigint "store_id", null: false
+    t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["store_id"], name: "index_users_on_store_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -173,11 +189,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_064845) do
   add_foreign_key "item_comments", "users"
   add_foreign_key "item_variants", "items"
   add_foreign_key "item_variants", "stores"
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "cities"
   add_foreign_key "items", "stores"
+  add_foreign_key "items", "subcategories"
   add_foreign_key "items", "users"
   add_foreign_key "store_comments", "stores"
   add_foreign_key "store_comments", "users"
+  add_foreign_key "stores", "categories"
+  add_foreign_key "stores", "cities"
+  add_foreign_key "stores", "subcategories"
   add_foreign_key "stores", "users"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "tags", "items"
+  add_foreign_key "users", "cities"
+  add_foreign_key "users", "stores"
 end

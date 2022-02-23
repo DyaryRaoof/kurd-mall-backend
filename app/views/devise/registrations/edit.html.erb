@@ -38,6 +38,16 @@
     <span class="px-2"><%= f.label :is_admin %></span>
   </div>
 
+  <div class="field">
+    <%= f.label :store_id %><br />
+    <%= f.text_field :store_id, autofocus: true, autocomplete: "Store ID",placeholdr: "Store ID", class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city_id %><br />
+    <%= f.text_field :city_id, autofocus: true, autocomplete: "City ID",placeholdr: "City ID", class: "form-control" %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
