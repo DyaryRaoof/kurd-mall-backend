@@ -1,0 +1,10 @@
+<h1>Editing subcategory</h1>
+
+<%= render "form", subcategory: @subcategory , url: category_subcategory_path%>
+
+<br>
+
+<div>
+  <%= link_to "Show this subcategory", category_subcategory(@subcategory) %> |
+  <%= link_to "Back to subcategories", category_subcategories_path %>
+</div>

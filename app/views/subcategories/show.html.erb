@@ -1,0 +1,8 @@
+<%= render @subcategory %>
+
+<div>
+  <%= link_to "Edit this subcategory", edit_category_subcategory_path(@subcategory) %> |
+  <%= link_to "Back to subcategories", category_subcategories_path %>
+
+  <%= button_to "Destroy this subcategory",category_subcategory_path(@subcategory), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

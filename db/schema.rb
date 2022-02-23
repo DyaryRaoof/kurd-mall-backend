@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_22_214638) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_22_215313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_214638) do
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
+  create_table "subcategories", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "name_ku"
+    t.string "name_en"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.bigint "item_id", null: false
@@ -162,5 +171,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_214638) do
   add_foreign_key "store_comments", "stores"
   add_foreign_key "store_comments", "users"
   add_foreign_key "stores", "users"
+  add_foreign_key "subcategories", "categories"
   add_foreign_key "tags", "items"
 end

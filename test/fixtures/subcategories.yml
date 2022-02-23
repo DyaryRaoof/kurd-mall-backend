@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: one
+  name_ku: MyString
+  name_en: MyString
+
+two:
+  category: two
+  name_ku: MyString
+  name_en: MyString

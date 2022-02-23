@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :categories
+ 
+
   devise_for :users
   get 'home/index'
   root to: 'users#index'
@@ -13,6 +14,10 @@ Rails.application.routes.draw do
         resources :item_comments
       end
     end
+  end
+
+  resources :categories do 
+    resources :subcategories
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
