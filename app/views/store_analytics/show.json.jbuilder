@@ -1,1 +1,1 @@
-json.partial! "store_analytics/store_analytic", store_analytic: @store_analytic
+json.partial! 'store_analytics/store_analytic', store_analytic: @store_analytic

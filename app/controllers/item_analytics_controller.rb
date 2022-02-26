@@ -1,14 +1,13 @@
 class ItemAnalyticsController < ApplicationController
-  before_action :set_item_analytic, only: %i[ show edit update destroy ]
+  before_action :set_item_analytic, only: %i[show edit update destroy]
 
   # GET /item_analytics or /item_analytics.json
   def index
-    @item_analytics = ItemAnalytic.all.paginate(:page => params[:page], :per_page => 30)
+    @item_analytics = ItemAnalytic.all.paginate(page: params[:page], per_page: 30)
   end
 
   # GET /item_analytics/1 or /item_analytics/1.json
-  def show
-  end
+  def show; end
 
   # GET /item_analytics/new
   def new
@@ -16,8 +15,7 @@ class ItemAnalyticsController < ApplicationController
   end
 
   # GET /item_analytics/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /item_analytics or /item_analytics.json
   def create
@@ -25,7 +23,10 @@ class ItemAnalyticsController < ApplicationController
 
     respond_to do |format|
       if @item_analytic.save
-        format.html { redirect_to user_store_item_analytic_url(id: @item_analytic), notice: "Item analytic was successfully created." }
+        format.html do
+          redirect_to user_store_item_analytic_url(id: @item_analytic),
+                      notice: 'Item analytic was successfully created.'
+        end
         format.json { render :show, status: :created, location: @item_analytic }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,10 @@ class ItemAnalyticsController < ApplicationController
   def update
     respond_to do |format|
       if @item_analytic.update(item_analytic_params)
-        format.html { redirect_to user_store_item_analytic_url(id: @item_analytic), notice: "Item analytic was successfully updated." }
+        format.html do
+          redirect_to user_store_item_analytic_url(id: @item_analytic),
+                      notice: 'Item analytic was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @item_analytic }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,22 @@ class ItemAnalyticsController < ApplicationController
     @item_analytic.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_store_item_analytics_url, notice: "Item analytic was successfully destroyed." }
+      format.html { redirect_to user_store_item_analytics_url, notice: 'Item analytic was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item_analytic
-      @item_analytic = ItemAnalytic.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def item_analytic_params
-      params.require(:item_analytic).permit(:item_id, :item_name, :lifetime_views, :total_stars, :total_reviews, :total_shares, :total_comments, :total_revenue_usd, :total_revenue_iqd, :total_item_sales)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item_analytic
+    @item_analytic = ItemAnalytic.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def item_analytic_params
+    params.require(:item_analytic).permit(:item_id, :item_name, :lifetime_views, :total_stars, :total_reviews,
+                                          :total_shares, :total_comments, :total_revenue_usd,
+                                          :total_revenue_iqd, :total_item_sales)
+  end
 end

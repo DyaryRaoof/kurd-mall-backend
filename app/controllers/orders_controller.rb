@@ -1,15 +1,14 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_order, only: %i[show edit update destroy]
 
   # GET /orders or /orders.json
   def index
     @q = Order.ransack(params[:q])
-    @orders = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 1)
+    @orders = @q.result(distinct: true).paginate(page: params[:page], per_page: 1)
   end
 
   # GET /orders/1 or /orders/1.json
-  def show
-  end
+  def show; end
 
   # GET /orders/new
   def new
@@ -17,8 +16,7 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /orders or /orders.json
   def create
@@ -26,7 +24,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to user_store_item_order_url(id: @order), notice: "Order was successfully created." }
+        format.html { redirect_to user_store_item_order_url(id: @order), notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +37,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to user_store_item_order_url(id: @order), notice: "Order was successfully updated." }
+        format.html { redirect_to user_store_item_order_url(id: @order), notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,19 +51,22 @@ class OrdersController < ApplicationController
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_store_item_orders_url, notice: "Order was successfully destroyed." }
+      format.html { redirect_to user_store_item_orders_url, notice: 'Order was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name, :price, :currency, :shipping_kg, :quantity, :total_weight, :total_price, :is_picked_up, :is_delivered)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params.require(:order).permit(:user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name,
+                                  :price, :currency, :shipping_kg, :quantity, :total_weight,
+                                  :total_price, :is_picked_up, :is_delivered)
+  end
 end

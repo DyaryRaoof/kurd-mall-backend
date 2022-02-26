@@ -9,11 +9,10 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true
   validates_numericality_of :price
-  validates :currency, presence: true, :inclusion => { in: ['IQD', 'USD'] }
+  validates :currency, presence: true, inclusion: { in: %w[IQD USD] }
   after_initialize :set_defaults, if: :new_record?
-  
+
   def set_defaults
     self.is_approved ||= false
   end
-
 end

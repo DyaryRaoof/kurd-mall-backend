@@ -1,6 +1,6 @@
 class Subcategory < ApplicationRecord
   belongs_to :category
-  
+
   validates :name_en, presence: true
   validates :name_en, uniqueness: true
   validates :name_ku, presence: true

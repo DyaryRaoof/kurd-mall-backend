@@ -1,5 +1,5 @@
 class OrderVariantsController < ApplicationController
-  before_action :set_order_variant, only: %i[ show edit update destroy ]
+  before_action :set_order_variant, only: %i[show edit update destroy]
 
   # GET /order_variants or /order_variants.json
   def index
@@ -7,8 +7,7 @@ class OrderVariantsController < ApplicationController
   end
 
   # GET /order_variants/1 or /order_variants/1.json
-  def show
-  end
+  def show; end
 
   # GET /order_variants/new
   def new
@@ -16,8 +15,7 @@ class OrderVariantsController < ApplicationController
   end
 
   # GET /order_variants/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /order_variants or /order_variants.json
   def create
@@ -25,7 +23,10 @@ class OrderVariantsController < ApplicationController
 
     respond_to do |format|
       if @order_variant.save
-        format.html { redirect_to user_store_item_order_order_variant_url(id: @order_variant), notice: "Order variant was successfully created." }
+        format.html do
+          redirect_to user_store_item_order_order_variant_url(id: @order_variant),
+                      notice: 'Order variant was successfully created.'
+        end
         format.json { render :show, status: :created, location: @order_variant }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,10 @@ class OrderVariantsController < ApplicationController
   def update
     respond_to do |format|
       if @order_variant.update(order_variant_params)
-        format.html { redirect_to user_store_item_order_order_variant_url(id: @order_variant), notice: "Order variant was successfully updated." }
+        format.html do
+          redirect_to user_store_item_order_order_variant_url(id: @order_variant),
+                      notice: 'Order variant was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @order_variant }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,22 @@ class OrderVariantsController < ApplicationController
     @order_variant.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_store_item_order_order_variants_url, notice: "Order variant was successfully destroyed." }
+      format.html do
+        redirect_to user_store_item_order_order_variants_url, notice: 'Order variant was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order_variant
-      @order_variant = OrderVariant.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_variant_params
-      params.require(:order_variant).permit(:order_id, :item_variant_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order_variant
+    @order_variant = OrderVariant.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_variant_params
+    params.require(:order_variant).permit(:order_id, :item_variant_id)
+  end
 end
