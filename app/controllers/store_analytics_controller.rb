@@ -65,6 +65,6 @@ class StoreAnalyticsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def store_analytic_params
-      params.require(:store_analytic).permit(:store_id, :stroe_name, :lifetime_views, :total_stars, :total_reviews, :total_shares, :total_comments, :total_revenue_usd, :total_revenue_iqd, :total_item_sales)
+      params.require(:store_analytic).permit(:store_id, :store_name, :lifetime_views, :total_stars, :total_reviews, :total_shares, :total_comments, :total_revenue_usd, :total_revenue_iqd, :total_item_sales)
     end
 end
