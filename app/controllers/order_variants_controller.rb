@@ -3,7 +3,7 @@ class OrderVariantsController < ApplicationController
 
   # GET /order_variants or /order_variants.json
   def index
-    @order_variants = OrderVariant.all
+    @order_variants = OrderVariant.where( order_id: params[:order_id])
   end
 
   # GET /order_variants/1 or /order_variants/1.json

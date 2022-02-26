@@ -3,7 +3,7 @@ class ItemCommentsController < ApplicationController
 
   # GET /item_comments or /item_comments.json
   def index
-    @q = ItemComment.ransack(params[:q])
+    @q = ItemComment.where(item_id: params[:item_id]).ransack(params[:q])
     @item_comments = @q.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 

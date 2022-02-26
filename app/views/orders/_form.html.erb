@@ -13,17 +13,17 @@
 
   <div>
     <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id, class: "form-control" %>
+    <%= form.text_field :user_id, value: params[:user_id], class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :store_id, style: "display: block" %>
-    <%= form.text_field :store_id, class: "form-control" %>
+    <%= form.text_field :store_id, value: params[:store_id],class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :item_id, style: "display: block" %>
-    <%= form.text_field :item_id, class: "form-control" %>
+    <%= form.text_field :item_id, value: params[:item_id], class: "form-control" %>
   </div>
 
   <div>

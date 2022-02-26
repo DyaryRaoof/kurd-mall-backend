@@ -3,7 +3,7 @@ class ItemVariantsController < ApplicationController
 
   # GET /item_variants or /item_variants.json
   def index
-    @item_variants = ItemVariant.all
+    @item_variants = ItemVariant.where(item_id: params[:item_id])
   end
 
   # GET /item_variants/1 or /item_variants/1.json
