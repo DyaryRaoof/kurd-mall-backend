@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    @q = Order.ransack(params[:q])
+    @orders = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 1)
   end
 
   # GET /orders/1 or /orders/1.json

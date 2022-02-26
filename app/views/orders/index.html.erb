@@ -1,7 +1,7 @@
 <h1>Orders</h1>
 
 <%= link_to "New order", new_user_store_item_order_path, class: "btn btn-primary mb-5" %>
-
+<%= render 'shared/search', search_query: :item_name_cont, placeholder: "Item Name", path: user_store_item_orders_url %>
 
 <div id="orders">
   <% @orders.each do |order| %>
@@ -10,5 +10,9 @@
       <%= link_to "Show this order", user_store_item_order_path(id: order) %>
     </p>
   <% end %>
+</div>
+
+<div class="d-flex justify-content-center">
+    <%= will_paginate @orders, class: "digg_pagination" %>
 </div>
 
