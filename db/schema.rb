@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_26_163241) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_165935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -146,6 +146,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_163241) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "store_analytics", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.string "stroe_name"
+    t.bigint "lifetime_views"
+    t.integer "total_stars"
+    t.bigint "total_reviews"
+    t.bigint "total_shares"
+    t.bigint "total_comments"
+    t.bigint "total_revenue_usd"
+    t.bigint "total_revenue_iqd"
+    t.bigint "total_item_sales"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_analytics_on_store_id"
+  end
+
   create_table "store_comments", force: :cascade do |t|
     t.bigint "store_id", null: false
     t.bigint "user_id", null: false
@@ -241,6 +257,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_163241) do
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "stores"
   add_foreign_key "orders", "users"
+  add_foreign_key "store_analytics", "stores"
   add_foreign_key "store_comments", "stores"
   add_foreign_key "store_comments", "users"
   add_foreign_key "stores", "categories"

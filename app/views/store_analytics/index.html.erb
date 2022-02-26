@@ -1,0 +1,11 @@
+<h1>Store analytics</h1>
+<%= link_to "New store analytic", new_user_store_store_analytic_path, class: "btn btn-primary mb-5" %>
+
+<div id="store_analytics">
+  <% @store_analytics.each do |store_analytic| %>
+    <%= render store_analytic %>
+    <p>
+      <%= link_to "Show this store analytic", user_store_store_analytic_path(id: store_analytic) %>
+    </p>
+  <% end %>
+</div>
