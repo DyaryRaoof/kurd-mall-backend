@@ -3,7 +3,7 @@ class StoreCommentsController < ApplicationController
 
   # GET /store_comments or /store_comments.json
   def index
-    @q = StoreComment.ransack(params[:q])
+    @q = StoreComment.where(user_id: params[:user_id], store_id: params[:store_id]).ransack(params[:q])
     @store_comments = @q.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 

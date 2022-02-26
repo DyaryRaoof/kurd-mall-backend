@@ -3,7 +3,7 @@ class StoreAnalyticsController < ApplicationController
 
   # GET /store_analytics or /store_analytics.json
   def index
-    @store_analytics = StoreAnalytic.all
+    @store_analytics = StoreAnalytic.where( store_id: params[:store_id])
   end
 
   # GET /store_analytics/1 or /store_analytics/1.json

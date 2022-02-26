@@ -3,7 +3,7 @@ class ItemAnalyticsController < ApplicationController
 
   # GET /item_analytics or /item_analytics.json
   def index
-    @item_analytics = ItemAnalytic.all.paginate(page: params[:page], per_page: 30)
+    @item_analytics = ItemAnalytic.where(store_id: params[:store_id]).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /item_analytics/1 or /item_analytics/1.json
@@ -72,6 +72,6 @@ class ItemAnalyticsController < ApplicationController
   def item_analytic_params
     params.require(:item_analytic).permit(:item_id, :item_name, :lifetime_views, :total_stars, :total_reviews,
                                           :total_shares, :total_comments, :total_revenue_usd,
-                                          :total_revenue_iqd, :total_item_sales)
+                                          :total_revenue_iqd, :total_item_sales, :store_id)
   end
 end
