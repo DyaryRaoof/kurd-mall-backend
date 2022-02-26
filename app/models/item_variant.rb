@@ -16,6 +16,6 @@ class ItemVariant < ApplicationRecord
 
     errors.add(:image_index,
                "should be for an image in the parent item that exists within this range below
-                 #{item.images.length - 1}")
+                 #{item.images.length}")
   end
 end
