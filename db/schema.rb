@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_23_082237) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_160854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_082237) do
     t.string "name_en"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "with_user_id"
+    t.bigint "response_to_chat_id"
+    t.string "with_user_nam"
+    t.string "with_user_image"
+    t.string "message"
+    t.boolean "is_read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -100,6 +113,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_082237) do
     t.index ["store_id"], name: "index_items_on_store_id"
     t.index ["subcategory_id"], name: "index_items_on_subcategory_id"
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "order_no"
+    t.bigint "driver_id"
+    t.string "item_name"
+    t.string "supplier_name"
+    t.float "price"
+    t.string "currency"
+    t.integer "shipping_kg"
+    t.integer "quantity"
+    t.integer "total_weight"
+    t.float "total_price"
+    t.boolean "is_picked_up"
+    t.boolean "is_delivered"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["store_id"], name: "index_orders_on_store_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "store_comments", force: :cascade do |t|
@@ -183,6 +219,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_082237) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chats", "users"
   add_foreign_key "item_comments", "items"
   add_foreign_key "item_comments", "users"
   add_foreign_key "item_variants", "items"
@@ -192,6 +229,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_23_082237) do
   add_foreign_key "items", "stores"
   add_foreign_key "items", "subcategories"
   add_foreign_key "items", "users"
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "stores"
+  add_foreign_key "orders", "users"
   add_foreign_key "store_comments", "stores"
   add_foreign_key "store_comments", "users"
   add_foreign_key "stores", "categories"

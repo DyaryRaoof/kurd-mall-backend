@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         resources :item_variants
         resources :tags
         resources :item_comments
+        resources :orders
       end
     end
   end
