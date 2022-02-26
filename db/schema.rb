@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_26_172755) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_174021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_172755) do
     t.string "name_ku"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "item_analytics", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.string "item_name"
+    t.bigint "lifetime_views"
+    t.integer "total_stars"
+    t.bigint "total_reviews"
+    t.bigint "total_shares"
+    t.bigint "total_comments"
+    t.bigint "total_revenue_usd"
+    t.bigint "total_revenue_iqd"
+    t.bigint "total_item_sales"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_analytics_on_item_id"
   end
 
   create_table "item_comments", force: :cascade do |t|
@@ -244,6 +260,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_172755) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "users"
+  add_foreign_key "item_analytics", "items"
   add_foreign_key "item_comments", "items"
   add_foreign_key "item_comments", "users"
   add_foreign_key "item_variants", "items"

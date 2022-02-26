@@ -1,0 +1,10 @@
+<h1>Editing item analytic</h1>
+
+<%= render "form", item_analytic: @item_analytic, url: user_store_item_analytic_url %>
+
+<br>
+
+<div>
+  <%= link_to "Show this item analytic",user_store_item_analytic_path(id: @item_analytic)  %> |
+  <%= link_to "Back to item analytics", user_store_item_analytics_path %>
+</div>

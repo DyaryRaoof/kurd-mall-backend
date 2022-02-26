@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :stores do
       resources :store_comments
       resources :store_analytics
+      resources :item_analytics
       resources :items do
         resources :item_variants
         resources :tags
