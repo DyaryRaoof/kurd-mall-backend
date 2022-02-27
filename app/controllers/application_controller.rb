@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
   before_action :update_allowed_parameters, if: :devise_controller?
 
   protected
@@ -15,9 +15,14 @@ class ApplicationController < ActionController::Base
                :current_password, :image, :phone, :is_driver, :is_admin,
                :store_id, :city_id)
     end
+
+    devise_parameter_sanitizer.permit(:sign_in) do |u|
+      u.permit(email, :password)
+    end
   end
 
   def after_sign_out_path_for(_resource_or_scope)
+    puts 'hello world'
     new_user_session_path
   end
 end

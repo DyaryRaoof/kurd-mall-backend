@@ -2,8 +2,16 @@ Rails.application.routes.draw do
   resources :cities
  
 
-  devise_for :users
+  devise_for :users,
+  controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations'
+  }
+
   get 'home/index'
+  get '/user', to: 'users#show'
+  get '/member-data', to: 'members#show'
+  
   root to: 'users#index'
 
   resources :users do 
