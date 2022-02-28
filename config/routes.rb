@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   }
 
   get 'home/index'
-  get '/user', to: 'users#show'
-  get '/member-data', to: 'members#show'
   
   root to: 'users#index'
 

@@ -17,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
             redirect_to root_url,
                         notice: 'User was successfully Signed in.'
           end
-          format.json { render json: { message: 'You are logged in.'}, status: :ok}
+          format.json { render json: { message: 'You are logged in.', user: current_user.slice(:id, :email,:name, :phone, :city_id, :store_id, :is_driver, :is_admin )}, status: :ok}
       end
     end
   
