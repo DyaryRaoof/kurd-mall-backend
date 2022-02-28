@@ -28,7 +28,9 @@ class StoresController < ApplicationController
           redirect_to user_store_url(user_id: params[:user_id], id: @store.id),
                       notice: 'Store was successfully created.'
         end
-        format.json { render :show, status: :created, location: user_store_url(user_id: params[:user_id], id: @store.id) }
+        format.json do
+          render :show, status: :created, location: user_store_url(user_id: params[:user_id], id: @store.id)
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @store.errors, status: :unprocessable_entity }

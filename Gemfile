@@ -49,8 +49,8 @@ gem 'will_paginate', '~> 3.3.0'
 gem 'ransack'
 
 gem 'devise-jwt'
+gem 'figaro'
 gem 'rack-cors'
-gem "figaro"
 
 # Use Sass to process CSS
 # gem "sassc-rails"

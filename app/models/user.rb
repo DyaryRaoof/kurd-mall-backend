@@ -8,9 +8,7 @@ class User < ApplicationRecord
 
   has_one_attached :image, dependent: :destroy
 
-
   def jwt_payload
     { 'foo' => 'bar' }
   end
-
 end
