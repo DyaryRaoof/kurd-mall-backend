@@ -1,3 +1,5 @@
+require_relative '../serializers/store_serializer.rb'
+
 class StoresController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_store, only: %i[show edit update destroy]
@@ -30,7 +32,8 @@ class StoresController < ApplicationController
                       notice: 'Store was successfully created.'
         end
         format.json do
-          render :show, status: :created, location: user_store_url(user_id: params[:user_id], id: @store.id)
+          # render :show, status: :created, location: user_store_url(user_id: params[:user_id], id: @store.id)
+          render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes], status: :created
         end
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,6 +76,6 @@ class StoresController < ApplicationController
   def store_params
     params.require(:store).permit(:user_id, :name, :description, :address, :phone, :instagram, :facebook,
                                   :locaation_long, :location_lat, :is_approved,
-                                  :category_id, :subcategory_id, :city_id, images: [])
+                                  :category_id, :subcategory_id, :city_id,:images, images: [] )
   end
 end

@@ -52,6 +52,8 @@ gem 'devise-jwt'
 gem 'figaro'
 gem 'rack-cors'
 
+gem 'jsonapi-serializer'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
