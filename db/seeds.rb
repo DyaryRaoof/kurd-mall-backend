@@ -103,5 +103,7 @@ category10.subcategories.create!(name_en: 'Medical Equipment', name_ku: 'کەل�
 category10.subcategories.create!(name_en: 'Other Medical Needs', name_ku: 'پێداویستی پزیشکی تر', order: 3)
 
 
-
-
+City.create!(name_en: 'Sulaimany', name_ku: 'سولەیمانی', order: 1)
+City.create!(name_en: 'Hawler', name_ku: 'هەولێر', order: 2)
+City.create!(name_en: 'Duhok', name_ku: 'دوهۆک', order: 3)
+City.create!(name_en: 'Halabja', name_ku: 'هەلەبجە', order: 4)

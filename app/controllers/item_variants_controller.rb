@@ -1,4 +1,5 @@
 class ItemVariantsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item_variant, only: %i[show edit update destroy]
 
   # GET /item_variants or /item_variants.json

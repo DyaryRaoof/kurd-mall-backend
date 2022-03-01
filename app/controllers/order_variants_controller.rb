@@ -1,4 +1,5 @@
 class OrderVariantsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_order_variant, only: %i[show edit update destroy]
 
   # GET /order_variants or /order_variants.json

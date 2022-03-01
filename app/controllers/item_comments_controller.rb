@@ -1,4 +1,5 @@
 class ItemCommentsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item_comment, only: %i[show edit update destroy]
 
   # GET /item_comments or /item_comments.json

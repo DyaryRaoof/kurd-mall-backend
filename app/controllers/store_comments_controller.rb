@@ -1,4 +1,5 @@
 class StoreCommentsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_store_comment, only: %i[show edit update destroy]
 
   # GET /store_comments or /store_comments.json

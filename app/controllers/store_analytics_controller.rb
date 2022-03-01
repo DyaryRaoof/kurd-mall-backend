@@ -1,4 +1,5 @@
 class StoreAnalyticsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_store_analytic, only: %i[show edit update destroy]
 
   # GET /store_analytics or /store_analytics.json
