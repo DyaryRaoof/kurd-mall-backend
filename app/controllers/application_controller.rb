@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_action :request_headers
   protect_from_forgery with: :null_session
   before_action :update_allowed_parameters, if: :devise_controller?
 
@@ -23,11 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_resource_or_scope)
-    puts 'hello world'
     new_user_session_path
-  end
-
-  def request_headers
-    puts request.headers.all? { |k, v| puts "#{k}: #{v}" };
   end
 end
