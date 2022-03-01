@@ -5,4 +5,5 @@ class Category < ApplicationRecord
   validates :name_ku, uniqueness: true
   has_many :stores
   has_many :items
+  has_many :subcategories
 end
