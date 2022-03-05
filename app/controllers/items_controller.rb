@@ -1,3 +1,7 @@
+
+require_relative '../serializers/item_serializer.rb'
+require 'json'
+
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: %i[show edit update destroy]
@@ -21,12 +25,19 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.new(item_params.except(:variants, :tags))
 
     respond_to do |format|
       if @item.save
+        save_item_variants
+        save_tags
+
         format.html { redirect_to user_store_item_path(id: @item), notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
+        format.json do
+          options = {}
+          options[:include] = [:item_variants, :tags]
+          render json: ItemSerializer.new(@item, options).serializable_hash[:data][:attributes], status: :created
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -66,7 +77,45 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:user_id, :store_id, :name, :description, :price, :currency, :is_approved,
-                                 :category_id, :subcategory_id, :city_id, images: [])
+    params.require(:item).permit(:user_id, :store_id, :name, :description, :price,:shipping_kg, :currency, :is_approved,
+                                 :category_id, :subcategory_id, :city_id,:cost,:quantity, :images, :variants => [], :tags => [], images: [])
   end
+
+  def ensure_json_request
+    params[:format] == "json" || request.headers["Accept"] =~ /json/
+  end
+
+  def save_item_variants 
+    @item_variants = item_params[:variants]
+    
+    if @item_variants
+      @item_variants.each do |item_variant|
+        parse = JSON.parse(item_variant)
+        image_index =  parse['imageIndex']
+        parse['image_index'] = image_index
+        parse.delete('imageIndex')
+        new_item_variant = ItemVariant.new(parse)
+        if ensure_json_request
+          new_item_variant.skip_image_index_presence_validation = true
+        end
+        new_item_variant.item_id = @item.id
+        new_item_variant.store_id = @item.store_id
+      
+        new_item_variant.save
+      end
+    end
+  end
+
+  def save_tags 
+    @tags =  item_params[:tags]
+    if @tags 
+      @tags.each do |tag|
+        parse = JSON.parse(tag);
+        new_tag = Tag.new(parse);
+        new_tag.item_id = @item.id
+        new_tag.save
+      end
+    end
+  end
+
 end

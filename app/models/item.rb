@@ -1,4 +1,4 @@
-class Item < ApplicationRecord
+class Item < ApplicationRecord 
   belongs_to :user
   belongs_to :store
   has_many_attached :images, dependent: :destroy
@@ -14,5 +14,9 @@ class Item < ApplicationRecord
 
   def set_defaults
     self.is_approved ||= false
+  end
+
+  def image_urls
+    images.map{|i| Rails.application.routes.url_helpers.url_for(i) }
   end
 end
