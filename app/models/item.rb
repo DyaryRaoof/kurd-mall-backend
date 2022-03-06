@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   has_many_attached :images, dependent: :destroy
   has_many :item_variants, dependent: :destroy
   has_many :tags, dependent: :destroy
+  has_one :item_star, dependent: :destroy
 
   validates :name, presence: true
   validates :description, presence: true

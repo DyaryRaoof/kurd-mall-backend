@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         resources :item_variants
         resources :tags
         resources :item_comments
+        resources :item_stars
         resources :orders do
           resources :order_variants
         end
