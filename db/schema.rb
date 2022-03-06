@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_06_161555) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_06_163527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -211,6 +211,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_06_161555) do
     t.index ["user_id"], name: "index_store_comments_on_user_id"
   end
 
+  create_table "store_stars", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.integer "number"
+    t.integer "reviewers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_stars_on_store_id"
+  end
+
   create_table "stores", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
@@ -302,6 +311,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_06_161555) do
   add_foreign_key "store_analytics", "stores"
   add_foreign_key "store_comments", "stores"
   add_foreign_key "store_comments", "users"
+  add_foreign_key "store_stars", "stores"
   add_foreign_key "stores", "categories"
   add_foreign_key "stores", "cities"
   add_foreign_key "stores", "subcategories"

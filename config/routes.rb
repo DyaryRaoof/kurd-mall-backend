@@ -1,6 +1,4 @@
-Rails.application.routes.draw do
-  resources :cities
- 
+Rails.application.routes.draw do 
 
   devise_for :users,
   controllers: {
@@ -17,6 +15,7 @@ Rails.application.routes.draw do
       resources :store_comments
       resources :store_analytics
       resources :item_analytics
+      resources :store_stars
       resources :items do
         resources :item_variants
         resources :tags
@@ -29,6 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :cities
   resources :categories do 
     resources :subcategories
   end
