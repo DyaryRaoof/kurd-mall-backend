@@ -3,7 +3,7 @@ require_relative '../serializers/item_serializer.rb'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :home_index]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
@@ -68,6 +68,21 @@ class ItemsController < ApplicationController
     end
   end
 
+  def home_index
+    @items = [];
+    subs = JSON.parse(params[:subcategory_ids])
+    # subs.each do |sub|
+    #   @items += Item.includes(:item_variants, :tags).where(subcategory_id: sub).limit(3).with_attached_images
+    # end
+    @items = Item.includes(:item_variants, :tags).where(subcategory_id: subs).distinct(:subcategory_id).limit(100).with_attached_images
+    options = {}
+    options[:is_collection] = true
+    options[:include] = [:item_variants, :tags]
+    hash = ItemSerializer.new(@items, options).serializable_hash
+    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -78,7 +93,7 @@ class ItemsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def item_params
     params.require(:item).permit(:user_id, :store_id, :name, :description, :price,:shipping_kg, :currency, :is_approved,
-                                 :category_id, :subcategory_id, :city_id,:cost,:quantity, :images, :variants => [], :tags => [], images: [])
+                                 :category_id, :subcategory_id, :city_id,:cost,:quantity, :images, :subcategory_ids, :variants => [], :tags => [], images: [])
   end
 
   def ensure_json_request

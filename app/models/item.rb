@@ -1,3 +1,5 @@
+require "active_record"
+
 class Item < ApplicationRecord 
   belongs_to :user
   belongs_to :store

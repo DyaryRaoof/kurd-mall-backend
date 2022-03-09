@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
 
   get 'home/index'
+  get 'items/home-index', to: 'items#home_index'
   
   root to: 'users#index'
 
