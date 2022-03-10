@@ -3,7 +3,7 @@ require_relative '../serializers/item_serializer.rb'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :home_index]
+  before_action :authenticate_user!, except: [:index, :show, :home_index, :related_items]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
@@ -82,6 +82,23 @@ class ItemsController < ApplicationController
     json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
     render json: json_string, status: :ok
   end
+
+  def related_items
+
+    @items = Item.includes(:item_variants, :tags).where("(name = ?) or (name like ?) or (name like ?) or (name like ?)", 
+      params[:name],
+         "% #{params[:name]} %", 
+         "#{params[:name]} %", 
+         "% #{params[:name]}").where.not(id: params[:id]).limit(10).with_attached_images
+
+    options = {}
+    options[:is_collection] = true
+    options[:include] = [:item_variants, :tags]
+    hash = ItemSerializer.new(@items, options).serializable_hash
+    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
 
   private
 
