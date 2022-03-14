@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'items/home_index', to: 'items#home_index'
   get 'items/related_items', to: 'items#related_items'
+  post 'stars', to: 'item_stars#create'
   
   root to: 'users#index'
 

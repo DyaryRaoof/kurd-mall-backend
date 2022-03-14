@@ -13,7 +13,6 @@ class ItemVariant < ApplicationRecord
   belongs_to :store
 
   def image_index_presence
-    puts 'triggered'
     return unless item.images[image_index].nil?
     errors.add(:image_index,
                "should be for an image in the parent item that exists within this range below

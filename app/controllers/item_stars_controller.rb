@@ -21,12 +21,12 @@ class ItemStarsController < ApplicationController
 
   # POST /item_stars or /item_stars.json
   def create
-    @item_star = ItemStar.new(item_star_params)
+    @item_star = ItemStar.new(number: params[:number], item_id: params[:item_id], user_id: params[:user_id])
 
     respond_to do |format|
       if @item_star.save
         format.html { redirect_to user_store_item_item_star_url(id: @item_star), notice: "Item star was successfully created." }
-        format.json { render :show, status: :created, location: @item_star }
+        format.json { render json: @item_star, status: :created}
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @item_star.errors, status: :unprocessable_entity }
@@ -39,10 +39,9 @@ class ItemStarsController < ApplicationController
     respond_to do |format|
       if @item_star.update(item_star_params)
         format.html { redirect_to  user_store_item_item_star_url(id: @item_star), notice: "Item star was successfully updated." }
-        format.json { render :show, status: :ok, location: @item_star }
+        format.json { render json: @item_star, status: :ok}
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @item_star.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,6 +64,7 @@ class ItemStarsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_star_params
-      params.require(:item_star).permit(:item_id, :number, :reviewers)
+      params.require(:item_star).permit(:item_id, :number, :reviewers, :user_id)
     end
+
 end

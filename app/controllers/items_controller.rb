@@ -74,7 +74,15 @@ class ItemsController < ApplicationController
     # subs.each do |sub|
     #   @items += Item.includes(:item_variants, :tags).where(subcategory_id: sub).limit(3).with_attached_images
     # end
-    @items = Item.includes(:item_variants, :tags).where(subcategory_id: subs).distinct(:subcategory_id).limit(100).with_attached_images
+    count = Item.count
+    if count < 100
+      @items = Item.includes(:item_variants, :tags).all.with_attached_images
+    else
+      @items = Item.includes(:item_variants, :tags).where(subcategory_id: subs).limit(100).with_attached_images
+    end
+
+    @items.each
+
     options = {}
     options[:is_collection] = true
     options[:include] = [:item_variants, :tags]
@@ -89,7 +97,7 @@ class ItemsController < ApplicationController
       params[:name],
          "% #{params[:name]} %", 
          "#{params[:name]} %", 
-         "% #{params[:name]}").where.not(id: params[:id]).limit(10).with_attached_images
+         "% #{params[:name]}").where.not(id: params[:id]).limit(30).with_attached_images
 
     options = {}
     options[:is_collection] = true
