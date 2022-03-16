@@ -1,6 +1,8 @@
 require "active_record"
 
 class Item < ApplicationRecord 
+
+  attr_accessor :stars
   belongs_to :user
   belongs_to :store
   has_many_attached :images, dependent: :destroy

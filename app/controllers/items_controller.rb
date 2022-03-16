@@ -81,7 +81,11 @@ class ItemsController < ApplicationController
       @items = Item.includes(:item_variants, :tags).where(subcategory_id: subs).limit(100).with_attached_images
     end
 
-    @items.each
+    @items.each do |item|
+      item.stars = {}
+      item.stars['number'] = (ItemStar.where(item_id: item.id).average(:number)).ceil
+      item.stars['reviewers'] = ItemStar.where(item_id: item.id).count;
+    end
 
     options = {}
     options[:is_collection] = true
