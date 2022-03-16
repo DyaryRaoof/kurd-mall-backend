@@ -1,11 +1,16 @@
 class ItemCommentsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show item_detail_comments]
   before_action :set_item_comment, only: %i[show edit update destroy]
 
   # GET /item_comments or /item_comments.json
   def index
     @q = ItemComment.where(item_id: params[:item_id]).ransack(params[:q])
     @item_comments = @q.result(distinct: true).paginate(page: params[:page], per_page: 30)
+  end
+
+  def item_detail_comments
+    @item_comments = ItemComment.where(item_id: params[:item_id]).paginate(page: params[:page], per_page: 30)
+    render json: @item_comments, status: :ok
   end
 
   # GET /item_comments/1 or /item_comments/1.json

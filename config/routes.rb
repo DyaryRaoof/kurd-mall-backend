@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'items/related_items', to: 'items#related_items'
   post 'stars', to: 'item_stars#create'
   post 'comments', to: 'item_comments#create'
+  get 'comments', to: 'item_comments#item_detail_comments'
   
   root to: 'users#index'
 
