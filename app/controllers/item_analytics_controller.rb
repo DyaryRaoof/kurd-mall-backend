@@ -1,5 +1,5 @@
 class ItemAnalyticsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_item_analytic, only: %i[show edit update destroy]
 
   # GET /item_analytics or /item_analytics.json

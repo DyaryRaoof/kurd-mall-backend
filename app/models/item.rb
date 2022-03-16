@@ -1,14 +1,15 @@
-require "active_record"
+require 'active_record'
 
-class Item < ApplicationRecord 
+class Item < ApplicationRecord
+  attr_accessor :stars, :item_comments
 
-  attr_accessor :stars
   belongs_to :user
   belongs_to :store
   has_many_attached :images, dependent: :destroy
   has_many :item_variants, dependent: :destroy
   has_many :tags, dependent: :destroy
-  has_one :item_star, dependent: :destroy
+  has_many :item_stars, dependent: :destroy
+  has_many :latest_5_comments, -> { order(created_at: :desc).limit(5) }, class_name: ItemComment.name
 
   validates :name, presence: true
   validates :description, presence: true
@@ -22,6 +23,6 @@ class Item < ApplicationRecord
   end
 
   def image_urls
-    images.map{|i| Rails.application.routes.url_helpers.url_for(i) }
+    images.map { |i| Rails.application.routes.url_helpers.url_for(i) }
   end
 end

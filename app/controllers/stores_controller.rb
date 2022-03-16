@@ -1,7 +1,7 @@
-require_relative '../serializers/store_serializer.rb'
+require_relative '../serializers/store_serializer'
 
 class StoresController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_store, only: %i[show edit update destroy]
 
   # GET users/:id/stores or users/:id/stores.json
@@ -76,6 +76,6 @@ class StoresController < ApplicationController
   def store_params
     params.require(:store).permit(:user_id, :name, :description, :address, :phone, :instagram, :facebook,
                                   :locaation_long, :location_lat, :is_approved,
-                                  :category_id, :subcategory_id, :city_id,:images, images: [] )
+                                  :category_id, :subcategory_id, :city_id, :images, images: [])
   end
 end

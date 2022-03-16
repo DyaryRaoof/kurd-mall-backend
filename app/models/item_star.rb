@@ -6,10 +6,7 @@ class ItemStar < ApplicationRecord
   validate :already_exists, on: :create
 
   def already_exists
-    item_star = ItemStar.where(item_id: self.item_id, user_id: self.user_id)[0]
-    unless item_star.nil?
-      errors.add(:item_id, "You have already rated this item.")
-    end
+    item_star = ItemStar.where(item_id: item_id, user_id: user_id)[0]
+    errors.add(:item_id, 'You have already rated this item.') unless item_star.nil?
   end
-
 end

@@ -18,13 +18,13 @@
     <%= f.text_field :phone, autofocus: true, autocomplete: "phone",placeholdr: "Phone", class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %><br />
-    <%= f.file_field :image, multiple: false, class: "form-control"  %><br>
+   <div class="field">
+    <%= f.label :images %><br />
+    <%= f.file_field :images, multiple: false, class: "form-control"  %><br>
   </div>
 
-   <%if @user.image.attached?%>
-      <p>Image: <%= image_tag @user.image, size: "200x200", class: "rounded-circle" %></p>
+   <%if @user.images.attached?%>
+      <p>Image: <%= image_tag @user.images[0], size: "200x200", class: "rounded-circle" %></p>
    <%end%>
 
   <div class="field  d-fle  align-items-center">

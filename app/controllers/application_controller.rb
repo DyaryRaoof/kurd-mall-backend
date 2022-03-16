@@ -2,18 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :update_allowed_parameters, if: :devise_controller?
 
-
   protected
 
   def update_allowed_parameters
     devise_parameter_sanitizer.permit(:sign_up) do |u|
-      u.permit(:name, :email, :password, :password_confirmation, :image, :phone, :is_driver, :is_admin, :store_id,
-               :city_id)
+      u.permit(:name, :email, :password, :password_confirmation, :phone, :is_driver, :is_admin, :store_id,
+               :city_id, :images, images: [])
     end
     devise_parameter_sanitizer.permit(:account_update) do |u|
       u.permit(:name, :email, :password, :password_confirmation,
-               :current_password, :image, :phone, :is_driver, :is_admin,
-               :store_id, :city_id)
+               :current_password, :phone, :is_driver, :is_admin,
+               :store_id, :city_id, :images, images: [])
     end
 
     devise_parameter_sanitizer.permit(:sign_in) do |u|

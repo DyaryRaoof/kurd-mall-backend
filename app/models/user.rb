@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :user_id
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -6,9 +8,10 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
 
-  has_one_attached :image, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
+  validates :images, presence: true
 
-  def jwt_payload
-    { 'foo' => 'bar' }
+  def image_urls
+    images.map { |i| Rails.application.routes.url_helpers.url_for(i) }
   end
 end

@@ -1,3 +1,5 @@
+require_relative '../../serializers/user_serializer'
+
 class Users::SessionsController < Devise::SessionsController
   # respond_to :json
 
@@ -17,8 +19,7 @@ class Users::SessionsController < Devise::SessionsController
       end
       format.json do
         render json: { message: 'You are logged in.',
-                       user: current_user.slice(:id, :email, :name, :phone,
-                                                :city_id, :store_id, :is_driver, :is_admin) },
+                       user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] },
                status: :ok
       end
     end
@@ -41,6 +42,12 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def log_out_failure
-    render json: resource.errors, status: :unauthorized
+    respond_to do |format|
+      format.html do
+        redirect_to after_sign_out_path_for(resource),
+                    notice: 'You signed out.'
+      end
+      format.json { render json: resource.errors, status: :unauthorized }
+    end
   end
 end

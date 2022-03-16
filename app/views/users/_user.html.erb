@@ -1,22 +1,13 @@
-<div class="border border-1 border-primary m-2 p-2 rounded">
-    <div style="display: flex;">
-    <div class="single-user-box"></div>
-        <div class="single-user-content main-border">
-        
-            <h1 class="text-primary"><%= user.name %></h1>
-            <%if user.image.attached?%>
-               <%= image_tag user.image, size: "200x200", class: "rounded-circle" %>
-            <%end%>
-            <p>Email: <%= user.email %></p>
-            <p>Phone: <%= user.phone %></p>
-            <p>Password: <%= user.password%></p>
-            <p>Store ID: <%= user.store_id%></p>
-            <p>City ID: <%= user.city_id%></p>
-            <p>Is Admin: <%= user.is_admin %></p>
-            <p>Is Driver: <%= user.is_driver %></p>
-            <p>ID: <%= user.id %></p>
-
-        </div>
-    </div>
-    <div><%= link_to "Show this user", user_path(user)%></div>
-</div
+<h1 class="text-primary"><%= user.name %></h1>
+<%if user.images.attached?%>
+    <%= image_tag user.images[0], size: "200x200", class: "rounded-circle" %>
+<%end%>
+<p>Email: <%= user.email %></p>
+<p>Phone: <%= user.phone %></p>
+<p>Password: <%= user.password%></p>
+<p>Store ID: <%= user.store_id%></p>
+<p>City ID: <%= user.city_id%></p>
+<p>Is Admin: <%= user.is_admin %></p>
+<p>Is Driver: <%= user.is_driver %></p>
+<p>ID: <%= user.id %></p>
+<div><%= link_to "Show this user", user_path(user)%></div>

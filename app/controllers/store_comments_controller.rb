@@ -1,5 +1,5 @@
 class StoreCommentsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_store_comment, only: %i[show edit update destroy]
 
   # GET /store_comments or /store_comments.json
@@ -72,6 +72,6 @@ class StoreCommentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def store_comment_params
-    params.require(:store_comment).permit(:store_id, :user_id, :user_name, :description)
+    params.require(:store_comment).permit(:store_id, :user_id, :user_name, :description, :user_image)
   end
 end

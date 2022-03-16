@@ -1,5 +1,6 @@
 class ItemVariant < ApplicationRecord
   attr_accessor :skip_image_index_presence_validation
+
   validates :item_id, presence: true
   validates :store_id, presence: true
   validates :name, presence: true
@@ -14,6 +15,7 @@ class ItemVariant < ApplicationRecord
 
   def image_index_presence
     return unless item.images[image_index].nil?
+
     errors.add(:image_index,
                "should be for an image in the parent item that exists within this range below
                  #{item.images.length}")
