@@ -78,7 +78,7 @@ class ItemsController < ApplicationController
                Item.includes(:item_variants, :tags, :latest_5_comments, :item_stars).all.with_attached_images
              else
                Item.includes(:item_variants, :tags, :latest_5_comments,
-                             :item_stars).where(subcategory_id: subs).limit(100).with_attached_images
+                             :item_stars).where(subcategory_id: subs).limit(300).with_attached_images
              end
 
     @items.each do |item|
@@ -89,7 +89,7 @@ class ItemsController < ApplicationController
         sum_of_star_numbers += star.number
       end
 
-      item.stars['number'] = (sum_of_star_numbers / item.item_stars.size).ceil
+      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
       item.stars['reviewers'] = item.item_stars.length
     end
 

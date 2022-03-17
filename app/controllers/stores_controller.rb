@@ -1,7 +1,7 @@
 require_relative '../serializers/store_serializer'
 
 class StoresController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show show_store]
   before_action :set_store, only: %i[show edit update destroy]
 
   # GET users/:id/stores or users/:id/stores.json
@@ -12,6 +12,11 @@ class StoresController < ApplicationController
 
   # GET users/:id/stores/1 or users/:id/stores/1.json
   def show; end
+
+  def show_store
+    @store = Store.find(params[:id])
+    render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes]
+  end
 
   # GET users/:id/stores/new
   def new
