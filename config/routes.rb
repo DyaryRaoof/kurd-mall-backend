@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   post 'comments', to: 'item_comments#create'
   get 'comments', to: 'item_comments#item_detail_comments'
   get 'stores/home_index', to: 'stores#home_index'
-  get 'stores/:id', to: 'stores#show_store'
+  get 'stores/subcategory_stores', to: 'stores#subcategory_stores'
+  get 'items/subcategory_items', to: 'items#subcategory_items'
+  get 'store/:id', to: 'stores#show_store'
+
 
   
   root to: 'users#index'

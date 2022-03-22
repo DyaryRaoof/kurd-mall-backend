@@ -1,7 +1,7 @@
 require_relative '../serializers/store_serializer'
 
 class StoresController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show show_store, home_index]
+  before_action :authenticate_user!, except: %i[index show show_store home_index subcategory_stores]
   before_action :set_store, only: %i[show edit update destroy]
 
   # GET users/:id/stores or users/:id/stores.json
@@ -79,6 +79,17 @@ class StoresController < ApplicationController
              else
               Store.where(subcategory_id: subs).limit(300).with_attached_images
              end
+    options = {}
+    options[:is_collection] = true
+    hash = StoreSerializer.new(@stores, options).serializable_hash[:data]
+    json_string = StoreSerializer.new(@stores, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
+  def subcategory_stores
+    @stores = []
+    subs = params[:subcategory_id]
+    @stores = Store.where(subcategory_id: subs).paginate(page: params[:page], per_page: 30).with_attached_images
     options = {}
     options[:is_collection] = true
     hash = StoreSerializer.new(@stores, options).serializable_hash[:data]

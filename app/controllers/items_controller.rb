@@ -2,13 +2,13 @@ require_relative '../serializers/item_serializer'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show home_index related_items]
+  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
   def index
     @q = Item.where(user_id: params[:user_id], store_id: params[:store_id]).ransack(params[:q])
-    @items = @q.result(distinct: true).paginate(page: params[:page], per_page: 3)
+    @items = @q.result(distinct: true).paginate(page: params[:page], per_page: 30)
   end
 
   # GET /items/1 or /items/1.json
@@ -70,9 +70,6 @@ class ItemsController < ApplicationController
   def home_index
     @items = []
     subs = JSON.parse(params[:subcategory_ids])
-    # subs.each do |sub|
-    #   @items += Item.includes(:item_variants, :tags).where(subcategory_id: sub).limit(3).with_attached_images
-    # end
     count = Item.count
     @items = if count < 100
                Item.includes(:item_variants, :tags, :latest_5_comments, :item_stars).all.with_attached_images
@@ -107,6 +104,32 @@ class ItemsController < ApplicationController
                                                         "% #{params[:name]} %",
                                                         "#{params[:name]} %",
                                                         "% #{params[:name]}").where.not(id: params[:id]).limit(30).with_attached_images
+    options = {}
+    options[:is_collection] = true
+    options[:include] = %i[item_variants tags]
+    hash = ItemSerializer.new(@items, options).serializable_hash
+    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
+  def subcategory_items 
+    @items = []
+    subs = params[:subcategory_id]
+    @items = Item.includes(:item_variants, :tags, :latest_5_comments,
+                             :item_stars).where(subcategory_id: subs).paginate(page: params[:page], per_page: 30).with_attached_images
+
+    @items.each do |item|
+      item.latest_5_comments.first(5)
+      item.stars = {}
+      sum_of_star_numbers = 0
+      item.item_stars.each do |star|
+        sum_of_star_numbers += star.number
+      end
+
+      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
+      item.stars['reviewers'] = item.item_stars.length
+    end
+
     options = {}
     options[:is_collection] = true
     options[:include] = %i[item_variants tags]
