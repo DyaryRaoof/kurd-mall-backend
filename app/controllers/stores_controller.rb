@@ -1,7 +1,7 @@
 require_relative '../serializers/store_serializer'
 
 class StoresController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show show_store]
+  before_action :authenticate_user!, except: %i[index show show_store, home_index]
   before_action :set_store, only: %i[show edit update destroy]
 
   # GET users/:id/stores or users/:id/stores.json
@@ -68,6 +68,22 @@ class StoresController < ApplicationController
       format.html { redirect_to user_stores_url, notice: 'Store was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def home_index
+    @stores = []
+    subs = JSON.parse(params[:subcategory_ids])
+    count = Store.count;
+    @stores = if count < 100
+               Store.all.with_attached_images
+             else
+              Store.where(subcategory_id: subs).limit(300).with_attached_images
+             end
+    options = {}
+    options[:is_collection] = true
+    hash = StoreSerializer.new(@stores, options).serializable_hash[:data]
+    json_string = StoreSerializer.new(@stores, options).serializable_hash.to_json
+    render json: json_string, status: :ok
   end
 
   private

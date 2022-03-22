@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   post 'stars', to: 'item_stars#create'
   post 'comments', to: 'item_comments#create'
   get 'comments', to: 'item_comments#item_detail_comments'
+  get 'stores/home_index', to: 'stores#home_index'
   get 'stores/:id', to: 'stores#show_store'
+
   
   root to: 'users#index'
 
