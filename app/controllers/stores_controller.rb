@@ -97,6 +97,11 @@ class StoresController < ApplicationController
     render json: json_string, status: :ok
   end
 
+  def my_store
+    @store = Store.find_by(user_id: params[:user_id])
+    render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes]
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

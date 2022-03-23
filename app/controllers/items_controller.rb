@@ -138,6 +138,30 @@ class ItemsController < ApplicationController
     render json: json_string, status: :ok
   end
 
+  def my_items 
+    @items = Item.includes(:item_variants, :tags, :latest_5_comments,
+                             :item_stars).where(user_id: params[:user_id]).paginate(page: params[:page], per_page: 30).with_attached_images
+
+    @items.each do |item|
+      item.latest_5_comments.first(5)
+      item.stars = {}
+      sum_of_star_numbers = 0
+      item.item_stars.each do |star|
+        sum_of_star_numbers += star.number
+      end
+
+      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
+      item.stars['reviewers'] = item.item_stars.length
+    end
+
+    options = {}
+    options[:is_collection] = true
+    options[:include] = %i[item_variants tags]
+    hash = ItemSerializer.new(@items, options).serializable_hash
+    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

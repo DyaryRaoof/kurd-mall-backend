@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'stores/subcategory_stores', to: 'stores#subcategory_stores'
   get 'items/subcategory_items', to: 'items#subcategory_items'
   get 'store/:id', to: 'stores#show_store'
+  get 'stores/my_store', to: 'stores#my_store'
+  get 'items/my_items', to: 'items#my_items'
 
 
   
