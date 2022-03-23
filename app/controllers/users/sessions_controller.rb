@@ -47,7 +47,7 @@ class Users::SessionsController < Devise::SessionsController
         redirect_to after_sign_out_path_for(resource),
                     notice: 'You signed out.'
       end
-      format.json { render json: resource.errors, status: :unauthorized }
+      format.json { render json: 'Could not log out', status: :unauthorized }
     end
   end
 end
