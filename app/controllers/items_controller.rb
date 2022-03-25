@@ -2,7 +2,7 @@ require_relative '../serializers/item_serializer'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items]
+  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items search]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
@@ -78,17 +78,7 @@ class ItemsController < ApplicationController
                              :item_stars).where(subcategory_id: subs).limit(300).with_attached_images
              end
 
-    @items.each do |item|
-      item.latest_5_comments.first(5)
-      item.stars = {}
-      sum_of_star_numbers = 0
-      item.item_stars.each do |star|
-        sum_of_star_numbers += star.number
-      end
-
-      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
-      item.stars['reviewers'] = item.item_stars.length
-    end
+    add_stars(@items);
 
     options = {}
     options[:is_collection] = true
@@ -118,17 +108,7 @@ class ItemsController < ApplicationController
     @items = Item.includes(:item_variants, :tags, :latest_5_comments,
                              :item_stars).where(subcategory_id: subs).paginate(page: params[:page], per_page: 30).with_attached_images
 
-    @items.each do |item|
-      item.latest_5_comments.first(5)
-      item.stars = {}
-      sum_of_star_numbers = 0
-      item.item_stars.each do |star|
-        sum_of_star_numbers += star.number
-      end
-
-      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
-      item.stars['reviewers'] = item.item_stars.length
-    end
+    add_stars(@items);
 
     options = {}
     options[:is_collection] = true
@@ -142,18 +122,33 @@ class ItemsController < ApplicationController
     @items = Item.includes(:item_variants, :tags, :latest_5_comments,
                              :item_stars).where(user_id: params[:user_id]).paginate(page: params[:page], per_page: 30).with_attached_images
 
-    @items.each do |item|
-      item.latest_5_comments.first(5)
-      item.stars = {}
-      sum_of_star_numbers = 0
-      item.item_stars.each do |star|
-        sum_of_star_numbers += star.number
-      end
+    add_stars(@items);
+    options = {}
+    options[:is_collection] = true
+    options[:include] = %i[item_variants tags]
+    hash = ItemSerializer.new(@items, options).serializable_hash
+    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
 
-      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
-      item.stars['reviewers'] = item.item_stars.length
-    end
+  def search
 
+    from = params[:price_from]  != 'null' ? params[:price_from] : 0
+    to = params[:price_to] != 'null' ? params[:price_to] : 10000000000
+    ascending = params[:ascending] == 'true' ? :asc : :desc
+    @items = Item
+    .includes(:item_variants, :tags, :latest_5_comments,:item_stars)
+    .where(:price => from..to)
+    .where(:currency => params[:currency])
+    .where('(items.name = ?) or (items.name like ?) or (items.name like ?) or (items.name like ?)',
+    params[:name],
+    "%#{params[:name]}%",
+    "#{params[:name]} %",
+    "% #{params[:name]}")
+    .order(:price => ascending)
+    .paginate(page: params[:page], per_page: 30).with_attached_images
+
+    add_stars(@items);
     options = {}
     options[:is_collection] = true
     options[:include] = %i[item_variants tags]
@@ -205,4 +200,19 @@ class ItemsController < ApplicationController
       new_tag.save
     end
   end
+
+  def add_stars(items)
+    items.each do |item|
+      item.latest_5_comments.first(5)
+      item.stars = {}
+      sum_of_star_numbers = 0
+      item.item_stars.each do |star|
+        sum_of_star_numbers += star.number
+      end
+
+      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
+      item.stars['reviewers'] = item.item_stars.length
+    end
+  end
+  
 end
