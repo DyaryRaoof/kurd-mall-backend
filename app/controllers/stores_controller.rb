@@ -1,7 +1,7 @@
 require_relative '../serializers/store_serializer'
 
 class StoresController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show show_store home_index subcategory_stores]
+  before_action :authenticate_user!, except: %i[index show show_store home_index subcategory_stores search]
   before_action :set_store, only: %i[show edit update destroy]
 
   # GET users/:id/stores or users/:id/stores.json
@@ -100,6 +100,23 @@ class StoresController < ApplicationController
   def my_store
     @store = Store.find_by(user_id: params[:user_id])
     render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes]
+  end
+
+
+  def search
+    @stores = Store
+    .where('(stores.name = ?) or (stores.name like ?) or (stores.name like ?) or (stores.name like ?)',
+    params[:name],
+    "%#{params[:name]}%",
+    "#{params[:name]} %",
+    "% #{params[:name]}")
+    .paginate(page: params[:page], per_page: 1).with_attached_images
+
+    options = {}
+    options[:is_collection] = true
+    hash = StoreSerializer.new(@stores, options).serializable_hash[:data]
+    json_string = StoreSerializer.new(@stores, options).serializable_hash.to_json
+    render json: json_string, status: :ok
   end
 
   private

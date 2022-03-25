@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'stores/my_store', to: 'stores#my_store'
   get 'items/my_items', to: 'items#my_items'
   get 'items/search', to: 'items#search'
+  get 'stores/search', to: 'stores#search'
 
 
   
