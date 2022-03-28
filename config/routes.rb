@@ -20,9 +20,11 @@ Rails.application.routes.draw do
   get 'items/my_items', to: 'items#my_items'
   get 'items/search', to: 'items#search'
   get 'stores/search', to: 'stores#search'
+  post 'orders', to: 'orders#create'
+  get 'orders/current_orders', to: 'orders#current_orders'
+  post 'orders/set_ordered', to: 'orders#set_ordered'
+  get 'orders/bought_orders', to: 'orders#bought_orders'
 
-
-  
   root to: 'users#index'
 
   resources :users do 

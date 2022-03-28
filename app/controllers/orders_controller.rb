@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         format.html { redirect_to user_store_item_order_url(id: @order), notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
+        format.json { render json: @order, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -57,6 +57,22 @@ class OrdersController < ApplicationController
     end
   end
 
+  def current_orders
+    @orders = Order.where(user_id: current_user.id, is_delivered: false, ordered: false)
+    render json: @orders, status: :ok
+  end
+
+  def set_ordered
+    order_ids = JSON.parse(params[:order_ids])
+    Order.where(id: order_ids).update_all(ordered: true)
+    render json: 'Orders added successfully', status: :ok
+  end
+
+  def bought_orders
+    @orders = Order.where(user_id: current_user.id, is_delivered: false, ordered: true)
+    render json: @orders, status: :ok
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -68,6 +84,6 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name,
                                   :price, :currency, :shipping_kg, :quantity, :total_weight,
-                                  :total_price, :is_picked_up, :is_delivered)
+                                  :total_price, :is_picked_up, :is_delivered, :order_ids, :ordered)
   end
 end
