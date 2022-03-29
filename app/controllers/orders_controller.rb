@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to user_store_item_orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :no_content , status: :ok }
     end
   end
 
@@ -84,6 +84,6 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name,
                                   :price, :currency, :shipping_kg, :quantity, :total_weight,
-                                  :total_price, :is_picked_up, :is_delivered, :order_ids, :ordered)
+                                  :total_price, :is_picked_up, :is_delivered, :order_ids, :ordered , :user_phone, :store_phone)
   end
 end

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'orders/current_orders', to: 'orders#current_orders'
   post 'orders/set_ordered', to: 'orders#set_ordered'
   get 'orders/bought_orders', to: 'orders#bought_orders'
+  delete 'orders', to: 'orders#destroy'
 
   root to: 'users#index'
 
