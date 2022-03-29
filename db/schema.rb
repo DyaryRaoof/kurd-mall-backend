@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_28_205508) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_29_174030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -143,6 +143,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_205508) do
     t.float "cost"
     t.integer "shipping_kg"
     t.integer "quantity"
+    t.string "store_name"
+    t.bigint "store_phone"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["city_id"], name: "index_items_on_city_id"
     t.index ["store_id"], name: "index_items_on_store_id"
@@ -183,6 +185,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_205508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "ordered"
+    t.bigint "user_phone"
+    t.bigint "store_phone"
+    t.bigint "driver_phone"
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["store_id"], name: "index_orders_on_store_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
