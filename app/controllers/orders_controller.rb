@@ -64,7 +64,9 @@ class OrdersController < ApplicationController
 
   def set_ordered
     order_ids = JSON.parse(params[:order_ids])
-    Order.where(id: order_ids).update_all(ordered: true)
+    location_lat = JSON.parse(params[:location_lat])
+    location_long = JSON.parse(params[:location_long])
+    Order.where(id: order_ids).update_all(ordered: true, location_lat: location_lat, location_long: location_long)
     render json: 'Orders added successfully', status: :ok
   end
 
@@ -83,7 +85,7 @@ class OrdersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def order_params
     params.require(:order).permit(:user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name,
-                                  :price, :currency, :shipping_kg, :quantity, :total_weight,
+                                  :price, :currency, :shipping_kg, :quantity, :total_weight,:location_lat, :location_long,
                                   :total_price, :is_picked_up, :is_delivered, :order_ids, :ordered , :user_phone, :store_phone)
   end
 end

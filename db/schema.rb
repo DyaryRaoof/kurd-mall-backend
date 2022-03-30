@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_29_174030) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_30_182120) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -188,6 +188,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_29_174030) do
     t.bigint "user_phone"
     t.bigint "store_phone"
     t.bigint "driver_phone"
+    t.float "location_lat"
+    t.float "location_long"
     t.index ["item_id"], name: "index_orders_on_item_id"
     t.index ["store_id"], name: "index_orders_on_store_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
