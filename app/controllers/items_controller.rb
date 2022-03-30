@@ -2,7 +2,7 @@ require_relative '../serializers/item_serializer'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items search]
+  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items search store_items]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
@@ -147,6 +147,19 @@ class ItemsController < ApplicationController
     "% #{params[:name]}")
     .order(:price => ascending)
     .paginate(page: params[:page], per_page: 30).with_attached_images
+
+    add_stars(@items);
+    options = {}
+    options[:is_collection] = true
+    options[:include] = %i[item_variants tags]
+    hash = ItemSerializer.new(@items, options).serializable_hash
+    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
+  def store_items 
+    @items = Item.includes(:item_variants, :tags, :latest_5_comments,
+                             :item_stars).where(store_id: params[:store_id]).paginate(page: params[:page], per_page: 30).with_attached_images
 
     add_stars(@items);
     options = {}
