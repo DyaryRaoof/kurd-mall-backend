@@ -2,7 +2,7 @@ require_relative '../serializers/item_serializer'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items search store_items]
+  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items search store_items show_item]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
@@ -167,6 +167,18 @@ class ItemsController < ApplicationController
     options[:include] = %i[item_variants tags]
     hash = ItemSerializer.new(@items, options).serializable_hash
     json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
+    render json: json_string, status: :ok
+  end
+
+  def show_item
+    @item = Item.includes(:item_variants, :tags, :latest_5_comments,
+    :item_stars).where(id: params[:id]).with_attached_images
+
+    add_stars(@item);
+    options = {}
+    options[:include] = %i[item_variants tags]
+    hash = ItemSerializer.new(@item, options).serializable_hash
+    json_string = ItemSerializer.new(@item, options).serializable_hash.to_json
     render json: json_string, status: :ok
   end
 

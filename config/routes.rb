@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'orders/all_orders', to: 'orders#all_orders'
   get 'orders/picked_up', to: 'orders#picked_up'
   get 'orders/delivered', to: 'orders#delivered'
+  get 'item', to: 'items#show_item'
 
   root to: 'users#index'
 
