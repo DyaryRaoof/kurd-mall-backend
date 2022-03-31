@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get 'items/store_items', to: 'items#store_items'
   get 'orders/driver_orders', to: 'orders#driver_orders'
   get 'orders/all_orders', to: 'orders#all_orders'
+  get 'orders/picked_up', to: 'orders#picked_up'
+  get 'orders/delivered', to: 'orders#delivered'
 
   root to: 'users#index'
 

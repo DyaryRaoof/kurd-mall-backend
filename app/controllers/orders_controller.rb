@@ -85,6 +85,17 @@ class OrdersController < ApplicationController
     render json: @orders, status: :ok
   end
 
+  def picked_up
+    Order.find(params[:id]).update(is_picked_up: true, driver_id: params[:driver_id], driver_phone: params[:driver_phone])
+    render json: 'Order picked up successfully', status: :ok
+  end
+
+  def delivered
+    Order.find(params[:id]).update(is_delivered: true)
+    render json: 'Order delivered successfully', status: :ok
+  end
+
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
