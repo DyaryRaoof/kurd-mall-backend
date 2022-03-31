@@ -75,6 +75,16 @@ class OrdersController < ApplicationController
     render json: @orders, status: :ok
   end
 
+  def driver_orders
+    @orders = Order.where(is_delivered: false, is_picked_up: true, ordered: true, driver_id: params[:driver_id]).paginate(page: params[:page], per_page: 30)
+    render json: @orders, status: :ok
+  end
+
+  def all_orders
+    @orders = Order.where(is_delivered: false,is_picked_up: false, ordered: true).paginate(page: params[:page], per_page: 30)
+    render json: @orders, status: :ok
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
