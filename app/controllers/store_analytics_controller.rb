@@ -1,5 +1,5 @@
 class StoreAnalyticsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show ]
   before_action :set_store_analytic, only: %i[show edit update destroy]
 
   # GET /store_analytics or /store_analytics.json
@@ -9,6 +9,11 @@ class StoreAnalyticsController < ApplicationController
 
   # GET /store_analytics/1 or /store_analytics/1.json
   def show; end
+
+  def show_store_analytics 
+    @store_analytic = StoreAnalytic.find_by(store_id: params[:store_id])
+    render json: @store_analytic
+  end
 
   # GET /store_analytics/new
   def new
