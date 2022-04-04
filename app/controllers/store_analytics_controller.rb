@@ -12,6 +12,10 @@ class StoreAnalyticsController < ApplicationController
 
   def show_store_analytics 
     @store_analytic = StoreAnalytic.find_by(store_id: params[:store_id])
+    @orders = Order.where(store_id: params[:store_id])
+    @store_analytic.total_revenue_usd = @orders.where(currency: 'USD').sum(:price)
+    @store_analytic.total_revenue_iqd =  @orders.where(currency: 'IQD').sum(:price)
+    @store_analytic.total_item_sales = @orders.sum(:quantity)
     render json: @store_analytic
   end
 
