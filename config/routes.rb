@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'orders/picked_up', to: 'orders#picked_up'
   get 'orders/delivered', to: 'orders#delivered'
   get 'item', to: 'items#show_item'
+  post 'store_analytics/views', to: 'store_analytics#views'
 
   root to: 'users#index'
 

@@ -62,6 +62,18 @@ class StoreAnalyticsController < ApplicationController
     end
   end
 
+  def views 
+    @store_analytic = StoreAnalytic.find_by(store_id: params[:store_id])
+    if @store_analytic.nil?
+      @store_analytic = StoreAnalytic.new(store_id: params[:store_id], store_name: params[:store_name], lifetime_views: 1)
+      @store_analytic.save
+    else
+      @store_analytic.lifetime_views += 1
+      @store_analytic.save
+    end
+    render json: @store_analytic
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
