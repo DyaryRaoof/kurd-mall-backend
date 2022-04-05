@@ -7,6 +7,17 @@ class ItemAnalyticsController < ApplicationController
     @item_analytics = ItemAnalytic.where(store_id: params[:store_id]).paginate(page: params[:page], per_page: 30)
   end
 
+  def item_analytics_index
+    @item_analytics = ItemAnalytic.where(store_id: params[:store_id]).paginate(page: params[:page], per_page: 30)
+    @item_analytics.each do |item_analytic|
+      @orders = Order.where(item_id: item_analytic.item_id)
+      item_analytic.total_revenue_usd = @orders.where(currency: 'USD').sum(:total_price)
+      item_analytic.total_revenue_iqd =  @orders.where(currency: 'IQD').sum(:total_price)
+      item_analytic.total_item_sales = @orders.where(item_id: item_analytic.item_id).sum(:quantity)
+    end
+    render json: @item_analytics
+  end
+
   # GET /item_analytics/1 or /item_analytics/1.json
   def show; end
 
@@ -65,6 +76,19 @@ class ItemAnalyticsController < ApplicationController
 
 
   def views 
+    @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
+    if @item_analytic.nil?
+      @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name], store_id: params[:store_id], lifetime_views: 1)
+      @item_analytic.save
+    else
+      @item_analytic.lifetime_views += 1
+      @item_analytic.save
+    end
+    render json: @item_analytic
+  end
+
+
+  def stars
     @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
     if @item_analytic.nil?
       @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name], store_id: params[:store_id], lifetime_views: 1)

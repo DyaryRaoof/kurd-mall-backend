@@ -23,6 +23,8 @@ class ItemStarsController < ApplicationController
 
     respond_to do |format|
       if @item_star.save
+        add_item_analytics(@item_star)
+
         format.html do
           redirect_to user_store_item_item_star_url(id: @item_star), notice: 'Item star was successfully created.'
         end
@@ -69,4 +71,18 @@ class ItemStarsController < ApplicationController
   def item_star_params
     params.require(:item_star).permit(:item_id, :number, :reviewers, :user_id)
   end
+
+  def add_item_analytics(item_star)
+    @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
+    unless @item_analytic.nil?
+      if @item_analytic.total_stars.nil? && @item_analytic.total_reviews.nil?
+        @item_analytic.total_stars = item_star.number
+        @item_analytic.total_reviews = 1
+        @item_analytic.save
+      else
+      @item_analytic.update(total_stars: ((@item_analytic.total_stars + tem_star.number)/2).ceil,total_reviews: @item_analytic.total_reviews + 1)
+      end
+    end
+  end
+
 end

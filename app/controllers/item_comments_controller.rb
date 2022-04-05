@@ -30,6 +30,9 @@ class ItemCommentsController < ApplicationController
 
     respond_to do |format|
       if @item_comment.save
+
+        add_item_analytics(@item_comment)
+
         format.html do
           redirect_to user_store_item_item_comment_url(id: @item_comment),
                       notice: 'Item comment was successfully created.'
@@ -79,4 +82,17 @@ class ItemCommentsController < ApplicationController
   def item_comment_params
     params.require(:item_comment).permit(:item_id, :user_id, :user_name, :description, :user_image)
   end
+
+  def add_item_analytics(item_comment)
+    @item_analytic = ItemAnalytic.find_by(item_id: item_comment.item_id)
+    unless @item_analytic.nil?
+      if @item_analytic.total_comments.nil?
+        @item_analytic.total_comments = 1
+        @item_analytic.save
+      else
+      @item_analytic.update(total_comments: @item_analytic.total_comments + 1)
+      end
+    end
+  end
+
 end
