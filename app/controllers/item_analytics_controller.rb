@@ -62,6 +62,22 @@ class ItemAnalyticsController < ApplicationController
     end
   end
 
+
+
+  def views 
+    @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
+    if @item_analytic.nil?
+      @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name], store_id: params[:store_id], lifetime_views: 1)
+      @item_analytic.save
+    else
+      @item_analytic.lifetime_views += 1
+      @item_analytic.save
+    end
+    render json: @item_analytic
+  end
+
+  
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
