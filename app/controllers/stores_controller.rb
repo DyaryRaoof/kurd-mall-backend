@@ -37,7 +37,6 @@ class StoresController < ApplicationController
                       notice: 'Store was successfully created.'
         end
         format.json do
-          # render :show, status: :created, location: user_store_url(user_id: params[:user_id], id: @store.id)
           render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes], status: :created
         end
       else
@@ -52,7 +51,9 @@ class StoresController < ApplicationController
     respond_to do |format|
       if @store.update(store_params)
         format.html { redirect_to user_store_url(id: @store.id), notice: 'Store was successfully updated.' }
-        format.json { render :show, status: :ok, location: @store }
+        format.json do
+          render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes], status: :created
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @store.errors, status: :unprocessable_entity }
