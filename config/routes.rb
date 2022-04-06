@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get 'store_analytics', to: 'store_analytics#show_store_analytics'
   post 'item_analytics/views', to: 'item_analytics#views'
   get 'item_analytics', to: 'item_analytics#item_analytics_index'
+  get 'item_analytics/search', to: 'item_analytics#search'
 
   root to: 'users#index'
 

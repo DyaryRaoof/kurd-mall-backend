@@ -100,6 +100,18 @@ class ItemAnalyticsController < ApplicationController
     render json: @item_analytic
   end
 
+  def search 
+    @item_analytics = ItemAnalytic
+    .where(store_id: params[:store_id])
+    .where('(item_name = ?) or (item_name like ?) or (item_name like ?) or (item_name like ?)',
+    params[:item_name],
+    "% #{params[:item_name]} %",
+    "#{params[:item_name]} %",
+    "% #{params[:item_name]}")
+    
+    render json: @item_analytics
+  end
+
   
 
   private
