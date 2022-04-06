@@ -47,9 +47,15 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.update(item_params.except(:variants, :tags))
+        save_item_variants(true)
+        save_tags(true)
         format.html { redirect_to user_store_item_url(@item), notice: 'Item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @item }
+        format.json do
+          options = {}
+          options[:include] = %i[item_variants tags]
+          render json: ItemSerializer.new(@item, options).serializable_hash[:data][:attributes], status: :ok
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -199,7 +205,10 @@ class ItemsController < ApplicationController
     params[:format] == 'json' || request.headers['Accept'] =~ /json/
   end
 
-  def save_item_variants
+  def save_item_variants(is_update = false)
+    if is_update
+      @item.item_variants.destroy_all
+    end
     @item_variants = item_params[:variants]
 
     @item_variants&.each do |item_variant|
@@ -216,7 +225,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  def save_tags
+  def save_tags(is_update = false)
+    if is_update
+      @item.tags.destroy_all
+    end
     @tags = item_params[:tags]
     @tags&.each do |tag|
       parse = JSON.parse(tag)
