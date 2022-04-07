@@ -74,15 +74,14 @@ class StoresController < ApplicationController
   def home_index
     @stores = []
     subs = JSON.parse(params[:subcategory_ids])
-    count = Store.count;
+    count = Store.count
     @stores = if count < 100
-               Store.all.with_attached_images
-             else
-              Store.where(subcategory_id: subs).limit(300).with_attached_images
-             end
+                Store.all.with_attached_images
+              else
+                Store.where(subcategory_id: subs).limit(300).with_attached_images
+              end
     options = {}
     options[:is_collection] = true
-    hash = StoreSerializer.new(@stores, options).serializable_hash[:data]
     json_string = StoreSerializer.new(@stores, options).serializable_hash.to_json
     render json: json_string, status: :ok
   end
@@ -93,7 +92,6 @@ class StoresController < ApplicationController
     @stores = Store.where(subcategory_id: subs).paginate(page: params[:page], per_page: 30).with_attached_images
     options = {}
     options[:is_collection] = true
-    hash = StoreSerializer.new(@stores, options).serializable_hash[:data]
     json_string = StoreSerializer.new(@stores, options).serializable_hash.to_json
     render json: json_string, status: :ok
   end
@@ -103,19 +101,17 @@ class StoresController < ApplicationController
     render json: StoreSerializer.new(@store).serializable_hash[:data][:attributes]
   end
 
-
   def search
     @stores = Store
-    .where('(stores.name = ?) or (stores.name like ?) or (stores.name like ?) or (stores.name like ?)',
-    params[:name],
-    "%#{params[:name]}%",
-    "#{params[:name]} %",
-    "% #{params[:name]}")
-    .paginate(page: params[:page], per_page: 1).with_attached_images
+      .where('(stores.name = ?) or (stores.name like ?) or (stores.name like ?) or (stores.name like ?)',
+             params[:name],
+             "%#{params[:name]}%",
+             "#{params[:name]} %",
+             "% #{params[:name]}")
+      .paginate(page: params[:page], per_page: 1).with_attached_images
 
     options = {}
     options[:is_collection] = true
-    hash = StoreSerializer.new(@stores, options).serializable_hash[:data]
     json_string = StoreSerializer.new(@stores, options).serializable_hash.to_json
     render json: json_string, status: :ok
   end

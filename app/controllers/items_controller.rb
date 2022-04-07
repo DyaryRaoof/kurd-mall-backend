@@ -2,7 +2,8 @@ require_relative '../serializers/item_serializer'
 require 'json'
 
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show home_index related_items subcategory_items search store_items show_item]
+  before_action :authenticate_user!,
+                except: %i[index show home_index related_items subcategory_items search store_items show_item]
   before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
@@ -73,120 +74,18 @@ class ItemsController < ApplicationController
     end
   end
 
-  def home_index
-    @items = []
-    subs = JSON.parse(params[:subcategory_ids])
-    count = Item.count
-    @items = if count < 100
-               Item.includes(:item_variants, :tags, :latest_5_comments, :item_stars).all.with_attached_images
-             else
-               Item.includes(:item_variants, :tags, :latest_5_comments,
-                             :item_stars).where(subcategory_id: subs).limit(300).with_attached_images
-             end
-
-    add_stars(@items);
-
-    options = {}
-    options[:is_collection] = true
-    options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@items, options).serializable_hash
-    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
-    render json: json_string, status: :ok
-  end
-
-  def related_items
-    @items = Item.includes(:item_variants, :tags).where('(name = ?) or (name like ?) or (name like ?) or (name like ?)',
-                                                        params[:name],
-                                                        "% #{params[:name]} %",
-                                                        "#{params[:name]} %",
-                                                        "% #{params[:name]}").where.not(id: params[:id]).limit(30).with_attached_images
-    options = {}
-    options[:is_collection] = true
-    options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@items, options).serializable_hash
-    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
-    render json: json_string, status: :ok
-  end
-
-  def subcategory_items 
-    @items = []
-    subs = params[:subcategory_id]
-    @items = Item.includes(:item_variants, :tags, :latest_5_comments,
-                             :item_stars).where(subcategory_id: subs).paginate(page: params[:page], per_page: 30).with_attached_images
-
-    add_stars(@items);
-
-    options = {}
-    options[:is_collection] = true
-    options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@items, options).serializable_hash
-    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
-    render json: json_string, status: :ok
-  end
-
-  def my_items 
-    @items = Item.includes(:item_variants, :tags, :latest_5_comments,
-                             :item_stars).where(user_id: params[:user_id]).paginate(page: params[:page], per_page: 30).with_attached_images
-
-    add_stars(@items);
-    options = {}
-    options[:is_collection] = true
-    options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@items, options).serializable_hash
-    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
-    render json: json_string, status: :ok
-  end
-
-  def search
-
-    from = params[:price_from]  != 'null' ? params[:price_from] : 0
-    to = params[:price_to] != 'null' ? params[:price_to] : 10000000000
-    ascending = params[:ascending] == 'true' ? :asc : :desc
-    @items = Item
-    .includes(:item_variants, :tags, :latest_5_comments,:item_stars)
-    .where(:price => from..to)
-    .where(:currency => params[:currency])
-    .where('(items.name = ?) or (items.name like ?) or (items.name like ?) or (items.name like ?)',
-    params[:name],
-    "%#{params[:name]}%",
-    "#{params[:name]} %",
-    "% #{params[:name]}")
-    .order(:price => ascending)
-    .paginate(page: params[:page], per_page: 30).with_attached_images
-
-    add_stars(@items);
-    options = {}
-    options[:is_collection] = true
-    options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@items, options).serializable_hash
-    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
-    render json: json_string, status: :ok
-  end
-
-  def store_items 
-    @items = Item.includes(:item_variants, :tags, :latest_5_comments,
-                             :item_stars).where(store_id: params[:store_id]).paginate(page: params[:page], per_page: 30).with_attached_images
-
-    add_stars(@items);
-    options = {}
-    options[:is_collection] = true
-    options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@items, options).serializable_hash
-    json_string = ItemSerializer.new(@items, options).serializable_hash.to_json
-    render json: json_string, status: :ok
-  end
-
   def show_item
     @item = Item.includes(:item_variants, :tags, :latest_5_comments,
-    :item_stars).where(id: params[:id]).with_attached_images
+                          :item_stars).where(id: params[:id]).with_attached_images
 
-    add_stars(@item);
+    add_stars(@item)
     options = {}
     options[:include] = %i[item_variants tags]
-    hash = ItemSerializer.new(@item, options).serializable_hash
     json_string = ItemSerializer.new(@item, options).serializable_hash.to_json
     render json: json_string, status: :ok
   end
+
+  include ItemsHelperMethods
 
   private
 
@@ -197,59 +96,13 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:user_id, :store_id, :name, :description, :price, :shipping_kg, :currency, :is_approved, :store_name, :store_phone,
-                                 :category_id, :subcategory_id, :city_id, :cost, :quantity, :images, :subcategory_ids, variants: [], tags: [], images: [])
+    params.require(:item).permit(
+      :user_id, :store_id, :name, :description,
+      :price, :shipping_kg, :currency, :is_approved, :store_name, :store_phone,
+      :category_id, :subcategory_id, :city_id, :cost, :quantity, :images,
+      :subcategory_ids, variants: [], tags: [], images: []
+    )
   end
 
-  def ensure_json_request
-    params[:format] == 'json' || request.headers['Accept'] =~ /json/
-  end
-
-  def save_item_variants(is_update = false)
-    if is_update
-      @item.item_variants.destroy_all
-    end
-    @item_variants = item_params[:variants]
-
-    @item_variants&.each do |item_variant|
-      parse = JSON.parse(item_variant)
-      image_index = parse['imageIndex']
-      parse['image_index'] = image_index
-      parse.delete('imageIndex')
-      new_item_variant = ItemVariant.new(parse)
-      new_item_variant.skip_image_index_presence_validation = true if ensure_json_request
-      new_item_variant.item_id = @item.id
-      new_item_variant.store_id = @item.store_id
-
-      new_item_variant.save
-    end
-  end
-
-  def save_tags(is_update = false)
-    if is_update
-      @item.tags.destroy_all
-    end
-    @tags = item_params[:tags]
-    @tags&.each do |tag|
-      parse = JSON.parse(tag)
-      new_tag = Tag.new(parse)
-      new_tag.item_id = @item.id
-      new_tag.save
-    end
-  end
-
-  def add_stars(items)
-    items.each do |item|
-      item.latest_5_comments.first(5)
-      item.stars = {}
-      sum_of_star_numbers = 0
-      item.item_stars.each do |star|
-        sum_of_star_numbers += star.number
-      end
-
-      item.stars['number'] = item.item_stars.size > 0 ?  (sum_of_star_numbers / item.item_stars.size).ceil : 0
-      item.stars['reviewers'] = item.item_stars.length
-    end
-  end
-  
+  include ItemsHelper
 end

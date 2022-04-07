@@ -20,11 +20,10 @@ class UsersController < ApplicationController
 
   def update_detail
     @user = User.find(params[:id])
-    if @user.update(name: params[:user][:name], phone: params[:user][:phone]);
+    if @user.update(name: params[:user][:name], phone: params[:user][:phone])
       render json: 'User was successfully updated.'
     else
       render json: @user.errors, status: :unprocessable_entity
     end
   end
-
 end

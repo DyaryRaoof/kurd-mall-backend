@@ -12,7 +12,7 @@ class ItemAnalyticsController < ApplicationController
     @item_analytics.each do |item_analytic|
       @orders = Order.where(item_id: item_analytic.item_id)
       item_analytic.total_revenue_usd = @orders.where(currency: 'USD').sum(:total_price)
-      item_analytic.total_revenue_iqd =  @orders.where(currency: 'IQD').sum(:total_price)
+      item_analytic.total_revenue_iqd = @orders.where(currency: 'IQD').sum(:total_price)
       item_analytic.total_item_sales = @orders.where(item_id: item_analytic.item_id).sum(:quantity)
     end
     render json: @item_analytics
@@ -73,46 +73,41 @@ class ItemAnalyticsController < ApplicationController
     end
   end
 
-
-
-  def views 
+  def views
     @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
     if @item_analytic.nil?
-      @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name], store_id: params[:store_id], lifetime_views: 1)
-      @item_analytic.save
+      @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name],
+                                        store_id: params[:store_id], lifetime_views: 1)
     else
       @item_analytic.lifetime_views += 1
-      @item_analytic.save
     end
+    @item_analytic.save
     render json: @item_analytic
   end
-
 
   def stars
     @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
     if @item_analytic.nil?
-      @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name], store_id: params[:store_id], lifetime_views: 1)
-      @item_analytic.save
+      @item_analytic = ItemAnalytic.new(item_id: params[:item_id], item_name: params[:item_name],
+                                        store_id: params[:store_id], lifetime_views: 1)
     else
       @item_analytic.lifetime_views += 1
-      @item_analytic.save
     end
+    @item_analytic.save
     render json: @item_analytic
   end
 
-  def search 
+  def search
     @item_analytics = ItemAnalytic
-    .where(store_id: params[:store_id])
-    .where('(item_name = ?) or (item_name like ?) or (item_name like ?) or (item_name like ?)',
-    params[:item_name],
-    "% #{params[:item_name]} %",
-    "#{params[:item_name]} %",
-    "% #{params[:item_name]}")
-    
+      .where(store_id: params[:store_id])
+      .where('(item_name = ?) or (item_name like ?) or (item_name like ?) or (item_name like ?)',
+             params[:item_name],
+             "% #{params[:item_name]} %",
+             "#{params[:item_name]} %",
+             "% #{params[:item_name]}")
+
     render json: @item_analytics
   end
-
-  
 
   private
 

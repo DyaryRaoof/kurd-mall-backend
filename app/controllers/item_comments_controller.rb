@@ -85,14 +85,13 @@ class ItemCommentsController < ApplicationController
 
   def add_item_analytics(item_comment)
     @item_analytic = ItemAnalytic.find_by(item_id: item_comment.item_id)
-    unless @item_analytic.nil?
-      if @item_analytic.total_comments.nil?
-        @item_analytic.total_comments = 1
-        @item_analytic.save
-      else
+    return if @item_analytic.nil?
+
+    if @item_analytic.total_comments.nil?
+      @item_analytic.total_comments = 1
+      @item_analytic.save
+    else
       @item_analytic.update(total_comments: @item_analytic.total_comments + 1)
-      end
     end
   end
-
 end

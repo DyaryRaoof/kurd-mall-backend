@@ -74,15 +74,15 @@ class ItemStarsController < ApplicationController
 
   def add_item_analytics(item_star)
     @item_analytic = ItemAnalytic.find_by(item_id: params[:item_id])
-    unless @item_analytic.nil?
-      if @item_analytic.total_stars.nil? && @item_analytic.total_reviews.nil?
-        @item_analytic.total_stars = item_star.number
-        @item_analytic.total_reviews = 1
-        @item_analytic.save
-      else
-      @item_analytic.update(total_stars: ((@item_analytic.total_stars + tem_star.number)/2).ceil,total_reviews: @item_analytic.total_reviews + 1)
-      end
+    return if @item_analytic.nil?
+
+    if @item_analytic.total_stars.nil? && @item_analytic.total_reviews.nil?
+      @item_analytic.total_stars = item_star.number
+      @item_analytic.total_reviews = 1
+      @item_analytic.save
+    else
+      @item_analytic.update(total_stars: ((@item_analytic.total_stars + tem_star.number) / 2).ceil,
+                            total_reviews: @item_analytic.total_reviews + 1)
     end
   end
-
 end

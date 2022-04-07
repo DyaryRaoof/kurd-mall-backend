@@ -8,6 +8,7 @@ class ItemSerializer
   belongs_to :store, serializer: StoreSerializer
   attributes :id, :user_id, :store_id, :name, :description,
              :price, :cost, :quantity, :shipping_kg, :currency,
-             :is_approved, :city_id, :category_id, :subcategory_id, :item_variants, :tags, :image_urls, :stars, :latest_5_comments,
+             :is_approved, :city_id, :category_id, :subcategory_id,
+             :item_variants, :tags, :image_urls, :stars, :latest_5_comments,
              :store_phone, :store_name
 end

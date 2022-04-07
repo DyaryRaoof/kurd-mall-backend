@@ -1,5 +1,5 @@
 class StoreAnalyticsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show ]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_store_analytic, only: %i[show edit update destroy]
 
   # GET /store_analytics or /store_analytics.json
@@ -10,11 +10,11 @@ class StoreAnalyticsController < ApplicationController
   # GET /store_analytics/1 or /store_analytics/1.json
   def show; end
 
-  def show_store_analytics 
+  def show_store_analytics
     @store_analytic = StoreAnalytic.find_by(store_id: params[:store_id])
     @orders = Order.where(store_id: params[:store_id])
     @store_analytic.total_revenue_usd = @orders.where(currency: 'USD').sum(:total_price)
-    @store_analytic.total_revenue_iqd =  @orders.where(currency: 'IQD').sum(:total_price)
+    @store_analytic.total_revenue_iqd = @orders.where(currency: 'IQD').sum(:total_price)
     @store_analytic.total_item_sales = @orders.sum(:quantity)
     render json: @store_analytic
   end
@@ -71,15 +71,15 @@ class StoreAnalyticsController < ApplicationController
     end
   end
 
-  def views 
+  def views
     @store_analytic = StoreAnalytic.find_by(store_id: params[:store_id])
     if @store_analytic.nil?
-      @store_analytic = StoreAnalytic.new(store_id: params[:store_id], store_name: params[:store_name], lifetime_views: 1)
-      @store_analytic.save
+      @store_analytic = StoreAnalytic.new(store_id: params[:store_id], store_name: params[:store_name],
+                                          lifetime_views: 1)
     else
       @store_analytic.lifetime_views += 1
-      @store_analytic.save
     end
+    @store_analytic.save
     render json: @store_analytic
   end
 

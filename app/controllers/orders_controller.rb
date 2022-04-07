@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to user_store_item_orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content , status: :ok }
+      format.json { head :no_content, status: :ok }
     end
   end
 
@@ -76,17 +76,23 @@ class OrdersController < ApplicationController
   end
 
   def driver_orders
-    @orders = Order.where(is_delivered: false, is_picked_up: true, ordered: true, driver_id: params[:driver_id]).paginate(page: params[:page], per_page: 30)
+    @orders = Order
+      .where(is_delivered: false, is_picked_up: true, ordered: true, driver_id: params[:driver_id])
+      .paginate(
+        page: params[:page], per_page: 30
+      )
     render json: @orders, status: :ok
   end
 
   def all_orders
-    @orders = Order.where(is_delivered: false,is_picked_up: false, ordered: true).paginate(page: params[:page], per_page: 30)
+    @orders = Order.where(is_delivered: false, is_picked_up: false, ordered: true).paginate(page: params[:page],
+                                                                                            per_page: 30)
     render json: @orders, status: :ok
   end
 
   def picked_up
-    Order.find(params[:id]).update(is_picked_up: true, driver_id: params[:driver_id], driver_phone: params[:driver_phone])
+    Order.find(params[:id]).update(is_picked_up: true, driver_id: params[:driver_id],
+                                   driver_phone: params[:driver_phone])
     render json: 'Order picked up successfully', status: :ok
   end
 
@@ -94,7 +100,6 @@ class OrdersController < ApplicationController
     Order.find(params[:id]).update(is_delivered: true)
     render json: 'Order delivered successfully', status: :ok
   end
-
 
   private
 
@@ -105,8 +110,11 @@ class OrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_params
-    params.require(:order).permit(:user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name,
-                                  :price, :currency, :shipping_kg, :quantity, :total_weight,:location_lat, :location_long,
-                                  :total_price, :is_picked_up, :is_delivered, :order_ids, :ordered , :user_phone, :store_phone)
+    params.require(:order)
+      .permit(
+        :user_id, :store_id, :item_id, :order_no, :driver_id, :item_name, :supplier_name,
+        :price, :currency, :shipping_kg, :quantity, :total_weight, :location_lat, :location_long,
+        :total_price, :is_picked_up, :is_delivered, :order_ids, :ordered, :user_phone, :store_phone
+      )
   end
 end
