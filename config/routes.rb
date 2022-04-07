@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   get 'item_analytics/search', to: 'item_analytics#search'
   put 'users/:user_id/stores/:id', to: 'stores#update'
   put 'users/:user_id/stores/:store_id/items/:id', to: 'items#update'
+  put 'user/:id/image', to: 'users#update_image'
+  put 'user/:id/detail', to: 'users#update_detail'
+
 
   root to: 'users#index'
 
