@@ -9,7 +9,8 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JwtDenylist
 
   has_many_attached :images, dependent: :destroy
-  validates :images, presence: true
+  validates :is_admin, presence: false
+  validates :is_driver, presence: false
 
   def image_urls
     images.map { |i| Rails.application.routes.url_helpers.url_for(i) }

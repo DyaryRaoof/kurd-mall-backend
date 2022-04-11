@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   put 'users/:user_id/stores/:store_id/items/:id', to: 'items#update'
   put 'user/:id/image', to: 'users#update_image'
   put 'user/:id/detail', to: 'users#update_detail'
+  patch 'user/:id/update_admin_fields', to: 'users#update_admin_fields', as: 'update_admin_fields'
+  get 'user/:id/update_admin_fields', to: 'users#update_admin_fields_form', as: 'update_admin_fields_form'
 
 
   root to: 'users#index'

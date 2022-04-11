@@ -29,7 +29,11 @@
     <div class="container">
       <div class="">
          <div>
-          <%= yield %>
+          <% if (can? :manage, :all) || request.path == '/users/sign_in' || request.path == 'users/sign_out' %>
+            <%= yield %>
+          <% else %>
+            <p class="text-center">You are not authorized</p>
+          <%end%>
          </div>
       </div>
     </div>

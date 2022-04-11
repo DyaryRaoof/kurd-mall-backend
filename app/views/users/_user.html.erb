@@ -11,3 +11,4 @@
 <p>Is Driver: <%= user.is_driver %></p>
 <p>ID: <%= user.id %></p>
 <div><%= link_to "Show this user", user_path(user)%></div>
+<div><%= link_to "Update this user", update_admin_fields_path(user), url: update_admin_fields_url(user)%></div>

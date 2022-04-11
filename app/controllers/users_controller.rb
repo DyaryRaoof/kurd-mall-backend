@@ -26,4 +26,17 @@ class UsersController < ApplicationController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
+
+  def update_admin_fields
+    @user = User.find(params[:id])
+    if @user.update(is_admin: params[:is_admin], is_driver: params[:is_driver])
+      redirect_to users_path, notice: 'User was successfully updated.'
+    else
+      redirect_to users_path, notice: "User was not updated. #{@user.errors.full_messages.join(', ')}"
+    end
+  end
+
+  def update_admin_fields_form
+    @user = User.find(params[:id])
+  end
 end

@@ -56,6 +56,8 @@ gem 'jsonapi-serializer'
 
 gem 'pg_search'
 
+gem 'cancancan'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
