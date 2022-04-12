@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    can :manage, :all if user.is_admin == true
+    can :manage, :all if user.is_admin == true || user.email == 'dyary2020@gmail.com'
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

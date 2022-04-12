@@ -33,18 +33,6 @@
     <%= f.text_field :city_id, autofocus: true, autocomplete: "City ID",placeholdr: "City ID", class: "form-control" %>
   </div>
 
-   <div class="field  d-fle  align-items-center">
-    <%= f.check_box :is_driver %>
-    <span class="px-2"><%= f.label :is_driver %></span>
-  </div>
-
-
-   <div class="field d-flex align-items-center">
-    <%= f.check_box :is_admin %>
-    <span class="px-2"><%= f.label :is_admin %></span>
-  </div>
-
-
   <div class="fieldx">
     <%= f.label :password %>
     <% if @minimum_password_length %>
