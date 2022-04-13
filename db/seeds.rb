@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+Category.destroy_all
+Subcategory.destroy_all
+City.destroy_all
+
 category1 = Category.create!(name_en: 'Cars', name_ku: 'ئووتۆمبیل', order: 1)
 category2 = Category.create!(name_en: 'Property', name_ku: 'مۆڵک', order: 2)
 category3 = Category.create!(name_en: 'Home Appliances', name_ku: 'کەلووپەلی ناو ماڵ', order: 3)
