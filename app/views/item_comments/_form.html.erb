@@ -1,0 +1,43 @@
+<%= form_with(model: item_comment, url: url) do |form| %>
+  <% if item_comment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(item_comment.errors.count, "error") %> prohibited this item_comment from being saved:</h2>
+
+      <ul>
+        <% item_comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :item_id, style: "display: block" %>
+    <%= form.text_field :item_id, class: "form-control", value: params[:item_id] %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id, class: "form-control", value: params[:user_id] %>
+  </div>
+
+  <div>
+    <%= form.label :user_name, style: "display: block" %>
+    <%= form.text_field :user_name, class: "form-control", value: User.find(params[:user_id]).name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+
+  <p>
+    <div>User Image</div>
+    <%= image_tag User.find(params[:user_id]).image, class: "store-image" %>
+  </p>
+
+  <div>
+    <%= form.submit 'Submit', class: "btn btn-primary mt-5"%>
+  </div>
+<% end %>

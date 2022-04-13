@@ -1,0 +1,10 @@
+<h1>Editing order</h1>
+
+<%= render "form", order: @order, url:  user_store_item_order_url%>
+
+<br>
+
+<div>
+  <%= link_to "Show this order", user_store_item_order_path(id: @order) %> |
+  <%= link_to "Back to orders", user_store_item_orders_path %>
+</div>

@@ -1,0 +1,10 @@
+<h1>Editing store</h1>
+
+<%= render "form", store: @store, path:  user_store_path(id: @store.id)  %>
+
+<br>
+
+<div>
+  <%= link_to "Show this store", user_store_path(id: @store.id) %> |
+  <%= link_to "Back to stores", user_stores_path %>
+</div>

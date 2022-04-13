@@ -1,0 +1,8 @@
+<%= render @tag %>
+
+<div>
+  <%= link_to "Edit this tag", edit_user_store_item_tag_path(@tag) %> |
+  <%= link_to "Back to tags", user_store_item_tags_path %>
+
+  <%= button_to "Destroy this tag", user_store_item_tag_path(@tag), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

@@ -1,0 +1,16 @@
+<h1>Item analytics</h1>
+<%= link_to "New item analytic", new_user_store_item_analytic_path, class: "btn btn-primary mb-5" %>
+
+<div id="item_analytics">
+  <% @item_analytics.each do |item_analytic| %>
+    <%= render item_analytic %>
+    <p>
+      <%= link_to "Show this item analytic", user_store_item_analytic_path(id: item_analytic) %>
+    </p>
+  <% end %>
+</div>
+
+
+<div class="d-flex justify-content-center">
+    <%= will_paginate @item_analytics, class: "digg_pagination" %>
+</div>

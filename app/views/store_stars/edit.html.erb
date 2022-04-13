@@ -1,0 +1,10 @@
+<h1>Editing store star</h1>
+
+<%= render "form", store_star: @store_star, url: user_store_store_star_url %>
+
+<br>
+
+<div>
+  <%= link_to "Show this store star", user_store_store_star_path(id: @store_star) %> |
+  <%= link_to "Back to store stars", user_store_store_stars_path %>
+</div>

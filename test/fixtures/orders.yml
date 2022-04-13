@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  store: one
+  item: one
+  order_no: 1
+  driver_id: 
+  item_name: MyString
+  supplier_name: MyString
+  price: 1.5
+  currency: MyString
+  shipping_kg: 1
+  quantity: 1
+  total_weight: 1
+  total_price: 1.5
+  is_picked_up: false
+  is_delivered: false
+
+two:
+  user: two
+  store: two
+  item: two
+  order_no: 1
+  driver_id: 
+  item_name: MyString
+  supplier_name: MyString
+  price: 1.5
+  currency: MyString
+  shipping_kg: 1
+  quantity: 1
+  total_weight: 1
+  total_price: 1.5
+  is_picked_up: false
+  is_delivered: false

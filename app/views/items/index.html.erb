@@ -1,0 +1,20 @@
+<h1>Items</h1>
+
+<%= link_to "New item", new_user_store_item_path, class: "btn btn-primary mb-5" %>
+
+<%= render 'shared/search', search_query: :name_cont, placeholder: "Name", path: user_store_items_url %>
+
+<div id="items">
+  <% @items.each do |item| %>
+    <%= render item, show_images: false %>
+    <p>
+      <%= link_to "Show this item", user_store_item_path(id: item) %>
+    </p>
+    <hr/>
+  <% end %>
+</div>
+
+<div class="d-flex justify-content-center">
+    <%= will_paginate @items, class: "digg_pagination" %>
+</div>
+

@@ -1,0 +1,8 @@
+<%= render @item_variant %>
+
+<div>
+  <%= link_to "Edit this item variant", edit_user_store_item_item_variant_path(@item_variant) %> |
+  <%= link_to "Back to item variants", user_store_item_item_variants_path %>
+
+  <%= button_to "Destroy this item variant", user_store_item_item_variant_path(@item_variant), method: :delete , class: "btn btn-danger mt-5"%>
+</div>

@@ -1,0 +1,8 @@
+<%= render @item_analytic %>
+
+<div>
+  <%= link_to "Edit this item analytic", edit_user_store_item_analytic_path(@item_analytic) %> |
+  <%= link_to "Back to item analytics", user_store_item_analytics_path %>
+
+  <%= button_to "Destroy this item analytic", user_store_item_analytic_path(id: @item_analytic), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

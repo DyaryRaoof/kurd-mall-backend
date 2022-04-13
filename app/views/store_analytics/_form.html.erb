@@ -1,0 +1,67 @@
+<%= form_with(model: store_analytic, url: url) do |form| %>
+  <% if store_analytic.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(store_analytic.errors.count, "error") %> prohibited this store_analytic from being saved:</h2>
+
+      <ul>
+        <% store_analytic.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :store_id, style: "display: block" %>
+    <%= form.text_field :store_id, value: params[:store_id], class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :store_name, style: "display: block" %>
+    <%= form.text_field :store_name, class: "form-control"  %>
+  </div>
+
+  <div>
+    <%= form.label :lifetime_views, style: "display: block" %>
+    <%= form.text_field :lifetime_views, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_stars, style: "display: block" %>
+    <%= form.number_field :total_stars, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_reviews, style: "display: block" %>
+    <%= form.text_field :total_reviews, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_shares, style: "display: block" %>
+    <%= form.text_field :total_shares, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_comments, style: "display: block" %>
+    <%= form.text_field :total_comments, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_revenue_usd, style: "display: block" %>
+    <%= form.text_field :total_revenue_usd, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_revenue_iqd, style: "display: block" %>
+    <%= form.text_field :total_revenue_iqd, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_item_sales, style: "display: block" %>
+    <%= form.text_field :total_item_sales, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.submit "Submit" , class: "btn btn-primary mt-5" %>
+  </div>
+<% end %>

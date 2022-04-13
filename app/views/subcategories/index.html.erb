@@ -1,0 +1,14 @@
+<h1>Subcategories</h1>
+
+<%= link_to "New subcategory", new_category_subcategory_path, class: "btn btn-primary mb-5" %>
+
+
+<div id="subcategories">
+  <% @subcategories.each do |subcategory| %>
+    <%= render subcategory %>
+    <p>
+      <%= link_to "Show this subcategory", category_subcategory_path(id: subcategory) %>
+    </p>
+  <% end %>
+</div>
+

@@ -1,0 +1,8 @@
+<%= render @order %>
+
+<div>
+  <%= link_to "Edit this order", edit_user_store_item_order_path(@order) %> |
+  <%= link_to "Back to orders", user_store_item_orders_path %>
+
+  <%= button_to "Destroy this order", user_store_item_order_path(id: @order), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

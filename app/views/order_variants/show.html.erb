@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @order_variant %>
+
+<div>
+  <%= link_to "Edit this order variant", edit_user_store_item_order_order_variant_path(@order_variant) %> |
+  <%= link_to "Back to order variants", user_store_item_order_order_variants_path %>
+
+  <%= button_to "Destroy this order variant", user_store_item_order_order_variant_path(id: @order_variant), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

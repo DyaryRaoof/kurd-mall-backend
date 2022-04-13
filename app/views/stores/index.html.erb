@@ -1,0 +1,18 @@
+<h1>Stores</h1>
+<%= link_to "New store", new_user_store_path, class: "btn btn-primary mb-5" %>
+
+<%= render 'shared/search', search_query: :name_cont, placeholder: "Name or user", path: user_stores_url(params[:user_id]) %>
+<div id="stores">
+  <% @stores.each do |store| %>
+    <%= render store , show_images: false%>
+    <p>
+      <%= link_to "Show this store", user_store_path(id: store.id) %>
+    </p>
+    <hr/>
+  <% end %>
+</div>
+
+<div class="d-flex justify-content-center">
+    <%= will_paginate @stores, class: "digg_pagination" %>
+</div>
+

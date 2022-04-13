@@ -1,0 +1,13 @@
+
+<h1>Order variants</h1>
+<%= link_to "New order variant", new_user_store_item_order_order_variant_path , class: "btn btn-primary mb-5" %>
+
+<div id="order_variants">
+  <% @order_variants.each do |order_variant| %>
+    <%= render order_variant %>
+    <p>
+      <%= link_to "Show this order variant", user_store_item_order_order_variant_path(id: order_variant) %>
+    </p>
+  <% end %>
+</div>
+

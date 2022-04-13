@@ -1,0 +1,8 @@
+<%= render @store_comment %>
+
+<div>
+  <%= link_to "Edit this store comment", edit_user_store_store_comment_path(@store_comment) %> |
+  <%= link_to "Back to store comments", user_store_store_comments_path %>
+
+  <%= button_to "Destroy this store comment", user_store_store_comment_path(@store_comment), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

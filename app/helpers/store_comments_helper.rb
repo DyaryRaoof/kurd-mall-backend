@@ -1,0 +1,2 @@
+module StoreCommentsHelper
+end

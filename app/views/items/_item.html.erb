@@ -1,0 +1,80 @@
+<div id="<%= dom_id item %>">
+<h1>Item</h1>
+  <p>
+    <strong>User:</strong>
+    <%= item.user_id %>
+  </p>
+
+  <p>
+    <strong>Store:</strong>
+    <%= item.store_id %>
+  </p>
+
+    <p>
+    <strong>Category:</strong>
+    <%= item.category_id %>
+  </p>
+
+   <p>
+    <strong>Subcategory:</strong>
+    <%= item.subcategory_id %>
+  </p>
+
+   <p>
+    <strong>City:</strong>
+    <%= item.city_id %>
+  </p>
+
+
+  <p>
+    <strong>Name:</strong>
+    <%= item.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= item.description %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= item.price %>
+  </p>
+
+  <p>
+    <strong>Currency:</strong>
+    <%= item.currency %>
+  </p>
+
+  <p>
+    <strong>Is approved:</strong>
+    <%= item.is_approved %>
+  </p>
+
+  <%if show_images%>
+    <p>
+      <% item.images.each do  |image|%>
+      <%= image_tag image, class: "store-image" %>
+      <%end %>
+    </p>
+  <%end%>
+
+  <% if item.item_variants.length > 0%>
+    <h3>Variants</h3>
+    <p>
+      <%item.item_variants.each_with_index do |variant, i|%>
+        <div><strong>Variant: <%= i+1 %></strong></div>
+        <%= render 'item_variants/item_variant', item_variant: variant%>
+        <%= image_tag item.images[variant.image_index], class: "store-image" %>
+      <%end%>
+    </p>
+  <%end%>
+
+
+  <% if item.tags.length > 0%>
+  <h3>Tags</h3>
+    <% item.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  <%end%>
+</div>
