@@ -1,0 +1,11 @@
+<h1>Item stars</h1>
+<%= link_to "New item star", new_user_store_item_item_star_path , class: 'btn btn-primary mb-5'%>
+
+<div id="item_stars">
+  <% @item_stars.each do |item_star| %>
+    <%= render item_star %>
+    <p>
+      <%= link_to "Show this item star", user_store_item_item_star_path(id: item_star )  %>
+    </p>
+  <% end %>
+</div>

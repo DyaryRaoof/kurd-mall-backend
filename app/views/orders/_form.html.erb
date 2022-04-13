@@ -1,0 +1,92 @@
+<%= form_with(model: order, url: url) do |form| %>
+  <% if order.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+        <% order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id, value: params[:user_id], class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :store_id, style: "display: block" %>
+    <%= form.text_field :store_id, value: params[:store_id],class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :item_id, style: "display: block" %>
+    <%= form.text_field :item_id, value: params[:item_id], class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :order_no, style: "display: block" %>
+    <%= form.number_field :order_no, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :driver_id, style: "display: block" %>
+    <%= form.text_field :driver_id, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :item_name, style: "display: block" %>
+    <%= form.text_field :item_name, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :supplier_name, style: "display: block" %>
+    <%= form.text_field :supplier_name, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :currency, style: "display: block" %>
+    <%= form.text_field :currency, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :shipping_kg, style: "display: block" %>
+    <%= form.number_field :shipping_kg, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :quantity, style: "display: block" %>
+    <%= form.number_field :quantity, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_weight, style: "display: block" %>
+    <%= form.number_field :total_weight, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :total_price, style: "display: block" %>
+    <%= form.text_field :total_price, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :is_picked_up, style: "display: block" %>
+    <%= form.check_box :is_picked_up %>
+  </div>
+
+  <div>
+    <%= form.label :is_delivered, style: "display: block" %>
+    <%= form.check_box :is_delivered %>
+  </div>
+
+  <div>
+    <%= form.submit 'Submit', class: "btn btn-primary"%>
+  </div>
+<% end %>

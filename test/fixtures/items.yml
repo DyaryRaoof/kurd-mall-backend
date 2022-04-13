@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  store: one
+  name: MyString
+  description: MyText
+  price: 1.5
+  currency: MyString
+  is_approved: false
+
+two:
+  user: two
+  store: two
+  name: MyString
+  description: MyText
+  price: 1.5
+  currency: MyString
+  is_approved: false

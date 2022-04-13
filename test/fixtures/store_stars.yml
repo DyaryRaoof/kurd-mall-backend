@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store: one
+  number: 1
+  reviewers: 1
+
+two:
+  store: two
+  number: 1
+  reviewers: 1

@@ -1,0 +1,7 @@
+<%= render @store , show_images: true %>
+
+<div>
+  <%= link_to "Edit this store", edit_user_store_path(@store) %> |
+  <%= link_to "Back to stores", user_stores_path %>
+  <%= button_to "Destroy this store",user_store_path(id:@store ) , method: :delete , class: "btn btn-danger mt-5" %>
+</div>

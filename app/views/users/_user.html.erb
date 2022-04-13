@@ -1,0 +1,14 @@
+<h1 class="text-primary"><%= user.name %></h1>
+<%if user.images.attached?%>
+    <%= image_tag user.images[0], size: "200x200", class: "rounded-circle" %>
+<%end%>
+<p>Email: <%= user.email %></p>
+<p>Phone: <%= user.phone %></p>
+<p>Password: <%= user.password%></p>
+<p>Store ID: <%= user.store_id%></p>
+<p>City ID: <%= user.city_id%></p>
+<p>Is Admin: <%= user.is_admin %></p>
+<p>Is Driver: <%= user.is_driver %></p>
+<p>ID: <%= user.id %></p>
+<div><%= link_to "Show this user", user_path(user)%></div>
+<div><%= link_to "Update this user", update_admin_fields_path(user), url: update_admin_fields_url(user)%></div>

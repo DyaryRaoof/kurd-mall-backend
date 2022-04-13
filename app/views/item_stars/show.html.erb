@@ -1,0 +1,8 @@
+<%= render @item_star %>
+
+<div>
+  <%= link_to "Edit this item star", edit_user_store_item_item_star_path(@item_star) %> |
+  <%= link_to "Back to item stars", user_store_item_item_stars_path %>
+
+  <%= button_to "Destroy this item star", user_store_item_item_star_path(id: @item_star), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

@@ -1,0 +1,2 @@
+module StoreAnalyticsHelper
+end

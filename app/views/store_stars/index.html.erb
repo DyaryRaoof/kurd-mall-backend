@@ -1,0 +1,13 @@
+
+<h1>Store stars</h1>
+<%= link_to "New store star", new_user_store_store_star_path, class: "btn btn-primary mb-5" %>
+
+<div id="store_stars">
+  <% @store_stars.each do |store_star| %>
+    <%= render store_star %>
+    <p>
+      <%= link_to "Show this store star", user_store_store_star_path(id: store_star) %>
+    </p>
+  <% end %>
+</div>
+

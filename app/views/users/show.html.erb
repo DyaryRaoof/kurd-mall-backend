@@ -1,0 +1,5 @@
+
+<%= render 'user', user: @user%>
+<div>
+    <%= button_to "Destroy this user", user_path(@user), method: :delete, class: "btn btn-danger mt-5" %>
+</div>

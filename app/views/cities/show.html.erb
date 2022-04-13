@@ -1,0 +1,8 @@
+<%= render @city %>
+
+<div>
+  <%= link_to "Edit this city", edit_city_path(@city) %> |
+  <%= link_to "Back to cities", cities_path %>
+
+  <%= button_to "Destroy this city", @city, method: :delete, class: "btn btn-danger mt-5" %>
+</div>

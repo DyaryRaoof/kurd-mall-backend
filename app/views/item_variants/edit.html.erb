@@ -1,0 +1,10 @@
+<h1>Editing item variant</h1>
+
+<%= render "form", item_variant: @item_variant, url: user_store_item_item_variant_url %>
+
+<br>
+
+<div>
+  <%= link_to "Show this item variant", user_store_item_item_variant_path(@item_variant)  %> |
+  <%= link_to "Back to item variants", user_store_item_item_variants_path %>
+</div>

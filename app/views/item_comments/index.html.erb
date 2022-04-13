@@ -1,0 +1,19 @@
+
+<h1>Item comments</h1>
+
+<%= link_to "New item comment", new_user_store_item_item_comment_path , class: "btn btn-primary mb-5" %>
+
+<%= render 'shared/search',search_query: :description_cont, placeholder: "Description", path: user_store_item_item_comments_url %>
+<div id="item_comments">
+  <% @item_comments.each do |item_comment| %>
+    <%= render item_comment %>
+    <p>
+      <%= link_to "Show this item comment", user_store_item_item_comment_path(id: item_comment) %>
+    </p>
+  <% end %>
+</div>
+
+
+<div class="d-flex justify-content-center">
+    <%= will_paginate @users, class: "digg_pagination" %>
+</div>

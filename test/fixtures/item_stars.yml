@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item: one
+  number: 1
+  reviewers: 1
+
+two:
+  item: two
+  number: 1
+  reviewers: 1

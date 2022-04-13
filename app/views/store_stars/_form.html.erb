@@ -1,0 +1,32 @@
+<%= form_with(model: store_star, url: url) do |form| %>
+  <% if store_star.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(store_star.errors.count, "error") %> prohibited this store_star from being saved:</h2>
+
+      <ul>
+        <% store_star.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :store_id, style: "display: block" %>
+    <%= form.text_field :store_id,value: params[:store_id], class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :number, style: "display: block" %>
+    <%= form.number_field :number, class: "form-control"  %>
+  </div>
+
+  <div>
+    <%= form.label :reviewers, style: "display: block" %>
+    <%= form.number_field :reviewers, class: "form-control"  %>
+  </div>
+
+  <div>
+    <%= form.submit "Submit", class: "btn btn-primary mt-5" %>
+  </div>
+<% end %>
