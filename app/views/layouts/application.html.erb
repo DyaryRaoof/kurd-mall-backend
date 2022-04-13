@@ -29,9 +29,7 @@
     <div class="container">
       <div class="">
          <div>
-          <% if (can? :manage, :all) || request.path == '/users/sign_in' || request.path == 'users/sign_out' || request.path == '/users/sign_up'
-          || request.path == '/users/confirmation/new'
-           %>
+          <% if (can? :manage, :all) || request.path == '/users/sign_in' || request.path == 'users/sign_out' || request.path == '/users/sign_up' || request.path == '/users/confirmation/new' %>
             <%= yield %>
           <% else %>
             <p class="text-center">You are not authorized</p>
