@@ -14,6 +14,9 @@ This is the back-end for a responsive react web app that's build as an e-commerc
 - Ruby on Rails
 - PostgreSQL as a databaase
 
+## Live Demo
+http://kurdmall-production.herokuapp.com/
+
 
 ## Front End Repo
 https://github.com/DyaryRaoof/kurd-mall
