@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_07_180050) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_14_220740) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -137,7 +137,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_07_180050) do
     t.boolean "is_approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "city_id", null: false
     t.bigint "category_id", null: false
     t.bigint "subcategory_id", null: false
     t.float "cost"
@@ -145,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_07_180050) do
     t.integer "quantity"
     t.string "store_name"
     t.bigint "store_phone"
+    t.bigint "city_id", null: false
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["city_id"], name: "index_items_on_city_id"
     t.index ["store_id"], name: "index_items_on_store_id"
