@@ -22,7 +22,7 @@ module KurdMallBackend
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # origins 'localhost:3000'
-        origins 'https://kurdmall-frontend-production.herokuapp.com/'
+        origins 'kurdmall-frontend-production.herokuapp.com'
     
         resource '*',
                  headers: :any,
